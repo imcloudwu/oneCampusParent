@@ -28,8 +28,6 @@ class ScanCodeViewCtrl: UIViewController,AVCaptureMetadataOutputObjectsDelegate,
         webView.hidden = true
         webView.delegate = self
         
-        //Global.AdjustView(contentView)
-        
         _videoPreview.layer.masksToBounds = true
         _videoPreview.layer.cornerRadius = 5
         // Do any additional setup after loading the view, typically from a nib.

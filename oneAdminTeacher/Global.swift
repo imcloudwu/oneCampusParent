@@ -311,42 +311,42 @@ func GetSchoolName(con:Connection) -> String{
     
     var schoolName = con.accessPoint
     
-    var error : DSFault!
-    var nserr : NSError?
+//    var error : DSFault!
+//    var nserr : NSError?
+//    
+//    var rsp = con.SendRequest("main.GetSchoolName", bodyContent: "", &error)
+//    
+//    let xml = AEXMLDocument(xmlData: rsp.dataValue, error: &nserr)
+//    
+//    if let name = xml?.root["Response"]["SchoolName"].first?.stringValue{
+//        schoolName = name
+//        
+//        let di = DsnsItem(name: schoolName, accessPoint: con.accessPoint)
+//        
+//        if !contains(Global.MySchoolList, di){
+//            Global.MySchoolList.append(di)
+//        }
+//    }
     
-    var rsp = con.SendRequest("main.GetSchoolName", bodyContent: "", &error)
     
-    let xml = AEXMLDocument(xmlData: rsp.dataValue, error: &nserr)
-    
-    if let name = xml?.root["Response"]["SchoolName"].first?.stringValue{
-        schoolName = name
+    //encode成功呼叫查詢
+    if let encodingName = con.accessPoint.UrlEncoding{
         
-        let di = DsnsItem(name: schoolName, accessPoint: con.accessPoint)
+        var data = HttpClient.Get("http://dsns.1campus.net/campusman.ischool.com.tw/config.public/GetSchoolList?content=%3CRequest%3E%3CMatch%3E\(encodingName)%3C/Match%3E%3CPagination%3E%3CPageSize%3E10%3C/PageSize%3E%3CStartPage%3E1%3C/StartPage%3E%3C/Pagination%3E%3C/Request%3E")
         
-        if !contains(Global.MySchoolList, di){
-            Global.MySchoolList.append(di)
+        if let rsp = data{
+            
+            //println(NSString(data: rsp, encoding: NSUTF8StringEncoding))
+            
+            var nserr : NSError?
+            
+            let xml = AEXMLDocument(xmlData: rsp, error: &nserr)
+            
+            if let name = xml?.root["Response"]["School"]["Title"].stringValue{
+                schoolName = name
+            }
         }
     }
-    
-    
-    //        //encode成功呼叫查詢
-    //        if let encodingName = con.accessPoint.UrlEncoding{
-    //
-    //            var data = HttpClient.Get("http://dsns.1campus.net/campusman.ischool.com.tw/config.public/GetSchoolList?content=%3CRequest%3E%3CMatch%3E\(encodingName)%3C/Match%3E%3CPagination%3E%3CPageSize%3E10%3C/PageSize%3E%3CStartPage%3E1%3C/StartPage%3E%3C/Pagination%3E%3C/Request%3E")
-    //
-    //            if let rsp = data{
-    //
-    //                //println(NSString(data: rsp, encoding: NSUTF8StringEncoding))
-    //
-    //                var nserr : NSError?
-    //
-    //                let xml = AEXMLDocument(xmlData: rsp, error: &nserr)
-    //
-    //                if let name = xml?.root["Response"]["School"]["Title"].stringValue{
-    //                    schoolName = name
-    //                }
-    //            }
-    //        }
     
     return schoolName
 }
