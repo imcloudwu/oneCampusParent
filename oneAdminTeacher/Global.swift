@@ -8,6 +8,7 @@
 
 import Foundation
 import UIKit
+import StoreKit
 
 public class Global{
     static var clientID = "e6228b759e6ca00c620a1f9a1171745d"

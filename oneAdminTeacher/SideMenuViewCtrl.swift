@@ -73,6 +73,13 @@ class SideMenuViewCtrl: UIViewController{
 //        ChangeContentView(nextView)
     }
     
+    @IBAction func SuperBuy(sender: AnyObject) {
+        
+        let nextView = self.storyboard?.instantiateViewControllerWithIdentifier("PurchaseMain") as! UIViewController
+        
+        ChangeContentView(nextView)
+    }
+    
     func Logout(){
         
         Global.Reset()

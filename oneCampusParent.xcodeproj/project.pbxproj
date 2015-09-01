@@ -30,6 +30,7 @@
 		610CB0931B5523E80051EC76 /* Edit Property-25.png in Resources */ = {isa = PBXBuildFile; fileRef = 610CB0911B5523E80051EC76 /* Edit Property-25.png */; };
 		610E0A501B53568900186BF3 /* Menu Filled-25.png in Resources */ = {isa = PBXBuildFile; fileRef = 610E0A4D1B53568900186BF3 /* Menu Filled-25.png */; };
 		610E0A541B537AC600186BF3 /* StudentDetailViewCtrl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 610E0A531B537AC600186BF3 /* StudentDetailViewCtrl.swift */; };
+		610EA13F1B8EC0A700EB54B0 /* PurchaseViewCtrl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 610EA13E1B8EC0A700EB54B0 /* PurchaseViewCtrl.swift */; };
 		6112A2301B46355300DA4E77 /* SemesterScoreViewCtrl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6112A22F1B46355300DA4E77 /* SemesterScoreViewCtrl.swift */; };
 		6112A2321B4637F900DA4E77 /* Elective Filled-50.png in Resources */ = {isa = PBXBuildFile; fileRef = 6112A2311B4637F900DA4E77 /* Elective Filled-50.png */; };
 		6114855F1B65EB6000B54BBB /* ic_ischool.png in Resources */ = {isa = PBXBuildFile; fileRef = 6114855E1B65EB6000B54BBB /* ic_ischool.png */; };
@@ -38,6 +39,8 @@
 		6114C8FF1B43A2A800C73E5E /* Diploma-32.png in Resources */ = {isa = PBXBuildFile; fileRef = 6114C8FB1B43A2A800C73E5E /* Diploma-32.png */; };
 		6114C9001B43A2A800C73E5E /* Purchase Order-32.png in Resources */ = {isa = PBXBuildFile; fileRef = 6114C8FC1B43A2A800C73E5E /* Purchase Order-32.png */; };
 		6114C9011B43A2A800C73E5E /* Today-32.png in Resources */ = {isa = PBXBuildFile; fileRef = 6114C8FD1B43A2A800C73E5E /* Today-32.png */; };
+		611660701B9552AF0032458B /* Expensive 2-50.png in Resources */ = {isa = PBXBuildFile; fileRef = 6116606F1B9552AF0032458B /* Expensive 2-50.png */; };
+		61196D141B8EED0A0004092D /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 61196D131B8EED0A0004092D /* StoreKit.framework */; };
 		612123ED1B411525000AA07D /* User-100.png in Resources */ = {isa = PBXBuildFile; fileRef = 612123EC1B411525000AA07D /* User-100.png */; };
 		612123F11B412A3B000AA07D /* Phone-32.png in Resources */ = {isa = PBXBuildFile; fileRef = 612123F01B412A3B000AA07D /* Phone-32.png */; };
 		612123F31B412BBB000AA07D /* StudentInfoViewCtrl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 612123F21B412BBB000AA07D /* StudentInfoViewCtrl.swift */; };
@@ -47,6 +50,9 @@
 		613C58811B2AC27D00461072 /* DetailViewCtrl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 613C58801B2AC27D00461072 /* DetailViewCtrl.swift */; };
 		613C58831B2ACDDD00461072 /* Leave Filled-50.png in Resources */ = {isa = PBXBuildFile; fileRef = 613C58821B2ACDDD00461072 /* Leave Filled-50.png */; };
 		613C58851B2AD92100461072 /* Star Filled-50.png in Resources */ = {isa = PBXBuildFile; fileRef = 613C58841B2AD92100461072 /* Star Filled-50.png */; };
+		613E8B0D1B9436930020228E /* Cash Register Filled-32.png in Resources */ = {isa = PBXBuildFile; fileRef = 613E8B0C1B9436930020228E /* Cash Register Filled-32.png */; };
+		613E8B0F1B94375C0020228E /* Coins-50.png in Resources */ = {isa = PBXBuildFile; fileRef = 613E8B0E1B94375C0020228E /* Coins-50.png */; };
+		613E8B111B943C4A0020228E /* PaymentViewCtrl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 613E8B101B943C4A0020228E /* PaymentViewCtrl.swift */; };
 		615BB2581B3BD47F00864052 /* DSUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 615BB2571B3BD47F00864052 /* DSUtil.swift */; };
 		615BB25A1B3BD4F800864052 /* HttpClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 615BB2591B3BD4F800864052 /* HttpClient.swift */; };
 		615BB25C1B3BD80300864052 /* Util.swift in Sources */ = {isa = PBXBuildFile; fileRef = 615BB25B1B3BD80300864052 /* Util.swift */; };
@@ -157,6 +163,7 @@
 		610CB0911B5523E80051EC76 /* Edit Property-25.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Edit Property-25.png"; path = "icon/Edit Property-25.png"; sourceTree = SOURCE_ROOT; };
 		610E0A4D1B53568900186BF3 /* Menu Filled-25.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Menu Filled-25.png"; path = "icon/Menu Filled-25.png"; sourceTree = SOURCE_ROOT; };
 		610E0A531B537AC600186BF3 /* StudentDetailViewCtrl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StudentDetailViewCtrl.swift; sourceTree = "<group>"; };
+		610EA13E1B8EC0A700EB54B0 /* PurchaseViewCtrl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PurchaseViewCtrl.swift; sourceTree = "<group>"; };
 		6112A22F1B46355300DA4E77 /* SemesterScoreViewCtrl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SemesterScoreViewCtrl.swift; sourceTree = "<group>"; };
 		6112A2311B4637F900DA4E77 /* Elective Filled-50.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Elective Filled-50.png"; path = "icon/Elective Filled-50.png"; sourceTree = SOURCE_ROOT; };
 		6114855E1B65EB6000B54BBB /* ic_ischool.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ic_ischool.png; path = icon/ic_ischool.png; sourceTree = SOURCE_ROOT; };
@@ -165,6 +172,8 @@
 		6114C8FB1B43A2A800C73E5E /* Diploma-32.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Diploma-32.png"; path = "icon/Diploma-32.png"; sourceTree = SOURCE_ROOT; };
 		6114C8FC1B43A2A800C73E5E /* Purchase Order-32.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Purchase Order-32.png"; path = "icon/Purchase Order-32.png"; sourceTree = SOURCE_ROOT; };
 		6114C8FD1B43A2A800C73E5E /* Today-32.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Today-32.png"; path = "icon/Today-32.png"; sourceTree = SOURCE_ROOT; };
+		6116606F1B9552AF0032458B /* Expensive 2-50.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Expensive 2-50.png"; path = "icon/Expensive 2-50.png"; sourceTree = SOURCE_ROOT; };
+		61196D131B8EED0A0004092D /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		612123EC1B411525000AA07D /* User-100.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "User-100.png"; sourceTree = "<group>"; };
 		612123F01B412A3B000AA07D /* Phone-32.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Phone-32.png"; sourceTree = "<group>"; };
 		612123F21B412BBB000AA07D /* StudentInfoViewCtrl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StudentInfoViewCtrl.swift; sourceTree = "<group>"; };
@@ -174,6 +183,9 @@
 		613C58801B2AC27D00461072 /* DetailViewCtrl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailViewCtrl.swift; sourceTree = "<group>"; };
 		613C58821B2ACDDD00461072 /* Leave Filled-50.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Leave Filled-50.png"; path = "icon/Leave Filled-50.png"; sourceTree = SOURCE_ROOT; };
 		613C58841B2AD92100461072 /* Star Filled-50.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Star Filled-50.png"; path = "icon/Star Filled-50.png"; sourceTree = SOURCE_ROOT; };
+		613E8B0C1B9436930020228E /* Cash Register Filled-32.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Cash Register Filled-32.png"; path = "icon/Cash Register Filled-32.png"; sourceTree = SOURCE_ROOT; };
+		613E8B0E1B94375C0020228E /* Coins-50.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Coins-50.png"; path = "icon/Coins-50.png"; sourceTree = SOURCE_ROOT; };
+		613E8B101B943C4A0020228E /* PaymentViewCtrl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaymentViewCtrl.swift; sourceTree = "<group>"; };
 		615BB2571B3BD47F00864052 /* DSUtil.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DSUtil.swift; sourceTree = "<group>"; };
 		615BB2591B3BD4F800864052 /* HttpClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HttpClient.swift; sourceTree = "<group>"; };
 		615BB25B1B3BD80300864052 /* Util.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Util.swift; sourceTree = "<group>"; };
@@ -275,6 +287,7 @@
 				61CA693D1B5E5D27002D2842 /* ParseCrashReporting.framework in Frameworks */,
 				61CA693E1B5E5D27002D2842 /* ParseFacebookUtils.framework in Frameworks */,
 				61CA692E1B5E5B1F002D2842 /* SystemConfiguration.framework in Frameworks */,
+				61196D141B8EED0A0004092D /* StoreKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -308,6 +321,9 @@
 		61E308D21B2A893400BE36D0 /* icon */ = {
 			isa = PBXGroup;
 			children = (
+				6116606F1B9552AF0032458B /* Expensive 2-50.png */,
+				613E8B0E1B94375C0020228E /* Coins-50.png */,
+				613E8B0C1B9436930020228E /* Cash Register Filled-32.png */,
 				610532291B8AC1690003C936 /* Plus Math-100.png */,
 				6100D0EF1B86E62F005AEF65 /* iPad2-58.png */,
 				6100D0F01B86E62F005AEF65 /* iPad2-80.png */,
@@ -395,6 +411,7 @@
 		61F5507A1B2A768900E26A5D = {
 			isa = PBXGroup;
 			children = (
+				61196D131B8EED0A0004092D /* StoreKit.framework */,
 				61E574851B85C47100D2BD21 /* PDChart */,
 				61CA69351B5E5D27002D2842 /* Bolts.framework */,
 				61CA69361B5E5D27002D2842 /* Parse.framework */,
@@ -440,6 +457,8 @@
 				61F5508A1B2A768900E26A5D /* FirstViewController.swift */,
 				61F5508C1B2A768900E26A5D /* SecondViewController.swift */,
 				61ABA7F41B4FB92C0071F9D4 /* SideMenuViewCtrl.swift */,
+				610EA13E1B8EC0A700EB54B0 /* PurchaseViewCtrl.swift */,
+				613E8B101B943C4A0020228E /* PaymentViewCtrl.swift */,
 				615BB2631B3BFC5A00864052 /* Global.swift */,
 				61C5E58B1B4BDF5E008F1DEF /* CommonStruct.swift */,
 				613C58781B2AB1CE00461072 /* CustomCell.swift */,
@@ -576,6 +595,9 @@
 							com.apple.BackgroundModes = {
 								enabled = 1;
 							};
+							com.apple.InAppPurchase = {
+								enabled = 1;
+							};
 						};
 					};
 					61F550991B2A768900E26A5D = {
@@ -612,12 +634,14 @@
 				6114C8FE1B43A2A800C73E5E /* Courses-32.png in Resources */,
 				61E9D7111B566C0600D36552 /* background2.png in Resources */,
 				6100D0F81B86E62F005AEF65 /* iPad2-180.png in Resources */,
+				613E8B0D1B9436930020228E /* Cash Register Filled-32.png in Resources */,
 				61E5747A1B85C03C00D2BD21 /* Menu 2-26.png in Resources */,
 				6104420C1B44E9FC007D3C98 /* Search Property Filled-32.png in Resources */,
 				610E0A501B53568900186BF3 /* Menu Filled-25.png in Resources */,
 				610CB0921B5523E80051EC76 /* Age-25.png in Resources */,
 				610CB0931B5523E80051EC76 /* Edit Property-25.png in Resources */,
 				61051F321B57463A00755ED5 /* background5.png in Resources */,
+				613E8B0F1B94375C0020228E /* Coins-50.png in Resources */,
 				6114C9011B43A2A800C73E5E /* Today-32.png in Resources */,
 				6105322E1B8ACC290003C936 /* shutterstock_196751174.jpg in Resources */,
 				6173AAD51B5797920049EB63 /* sidebackground.jpg in Resources */,
@@ -637,6 +661,7 @@
 				6173AAD31B5791860049EB63 /* Message Filled-32.png in Resources */,
 				61E9D70F1B5656AC00D36552 /* background.png in Resources */,
 				61E308D71B2A997400BE36D0 /* Classroom Filled-50.png in Resources */,
+				611660701B9552AF0032458B /* Expensive 2-50.png in Resources */,
 				61FEC8EB1B678DE80095C52B /* default photo.jpg in Resources */,
 				6100D0F61B86E62F005AEF65 /* iPad2-87.png in Resources */,
 				6100D0F41B86E62F005AEF65 /* iPad2-58.png in Resources */,
@@ -693,6 +718,7 @@
 				610882C41B8C067000CEBBE5 /* ScanCodeViewCtrl.swift in Sources */,
 				6105832C1B4BAB4500274EEA /* ExamScoreViewCtrl.swift in Sources */,
 				615BB25A1B3BD4F800864052 /* HttpClient.swift in Sources */,
+				610EA13F1B8EC0A700EB54B0 /* PurchaseViewCtrl.swift in Sources */,
 				61E5747E1B85C2E900D2BD21 /* WatchReaderListViewCtrl.swift in Sources */,
 				615BB2601B3BE3FC00864052 /* OAuthHelper.swift in Sources */,
 				61ABA7F31B4FB88B0071F9D4 /* UIViewController+MMDrawerController.m in Sources */,
@@ -718,6 +744,7 @@
 				61076A5D1B5F3E5A00A0CC4C /* MessageViewCtrl.swift in Sources */,
 				615BB25C1B3BD80300864052 /* Util.swift in Sources */,
 				61E5748F1B85C47100D2BD21 /* PDBarChart.swift in Sources */,
+				613E8B111B943C4A0020228E /* PaymentViewCtrl.swift in Sources */,
 				612123F31B412BBB000AA07D /* StudentInfoViewCtrl.swift in Sources */,
 				61ABA7F71B4FC7C70071F9D4 /* ClassViewCtrl.swift in Sources */,
 				613C58811B2AC27D00461072 /* DetailViewCtrl.swift in Sources */,

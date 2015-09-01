@@ -24,6 +24,8 @@ class ScanCodeViewCtrl: UIViewController,AVCaptureMetadataOutputObjectsDelegate,
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.view.backgroundColor = UIColor(patternImage: UIImage(named: "childBackground.jpg")!)
+        
         webView = UIWebView()
         webView.hidden = true
         webView.delegate = self
