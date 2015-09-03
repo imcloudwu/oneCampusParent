@@ -279,6 +279,11 @@ class ExamScoreViewCtrl: UIViewController,UITableViewDelegate,UITableViewDataSou
         var err : DSFault!
         var rsp = _con.sendRequest("evaluateScoreJH.GetScoreCalcRule", bodyContent: "<Request><StudentID>\(StudentData.ID)</StudentID></Request>", &err)
         
+        if err != nil{
+            ShowErrorAlert(self,"取得資料發生錯誤",err.message)
+            return
+        }
+        
         var nserr : NSError?
         
         let xml = AEXMLDocument(xmlData: rsp.dataValue, error: &nserr)
@@ -299,6 +304,11 @@ class ExamScoreViewCtrl: UIViewController,UITableViewDelegate,UITableViewDataSou
         
         var err : DSFault!
         var rsp = _con.sendRequest("evaluateScoreSH.GetExamScore", bodyContent: "<Request><Condition><StudentID>\(StudentData.ID)</StudentID></Condition></Request>", &err)
+        
+        if err != nil{
+            ShowErrorAlert(self,"取得資料發生錯誤",err.message)
+            return retVal
+        }
         
         var nserr : NSError?
         
@@ -344,6 +354,11 @@ class ExamScoreViewCtrl: UIViewController,UITableViewDelegate,UITableViewDataSou
         
         var err : DSFault!
         var rsp = _con.sendRequest("evaluateScoreJH.GetExamScore", bodyContent: "<Request><Condition><StudentID>\(StudentData.ID)</StudentID></Condition></Request>", &err)
+        
+        if err != nil{
+            ShowErrorAlert(self,"取得資料發生錯誤",err.message)
+            return retVal
+        }
         
         var nserr : NSError?
         

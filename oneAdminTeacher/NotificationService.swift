@@ -35,6 +35,7 @@ public class NotificationService{
     }
     
     static func SetNewMessageDelegate(callback:(()->())?){
+        
         newMessageDelegate = callback
     }
     

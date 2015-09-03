@@ -438,6 +438,16 @@ func GetImageFromBase64String(base64String:String,defaultImg:UIImage?) -> UIImag
 }
 
 
+func GetCoinsBalance() -> String{
+    if let myCoins = Keychain.load("myCoins")?.stringValue{
+        
+        return myCoins.isEmpty ? "0" : myCoins
+    }
+    
+    return "無法讀取"
+}
+
+
 
 
 

@@ -41,9 +41,7 @@ class PurchaseViewCtrl: UIViewController {
     }
     
     override func viewWillAppear(animated: Bool) {
-        if let myCoins = Keychain.load("myCoins")?.stringValue{
-            MyCoinsBalance.text = "\(myCoins)"
-        }
+        MyCoinsBalance.text = GetCoinsBalance()
     }
     
     @IBAction func BuyMoreCoins(sender: AnyObject) {
@@ -82,7 +80,6 @@ class PurchaseViewCtrl: UIViewController {
     }
     
     func CheckCoinsAndDeadline(){
-        MyCoinsBalance.text = "0"
         MyServiceDeadline.text = DateFormater.stringFromDate(Deadline)
     }
 }

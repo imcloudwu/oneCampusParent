@@ -53,6 +53,7 @@
 		613E8B0D1B9436930020228E /* Cash Register Filled-32.png in Resources */ = {isa = PBXBuildFile; fileRef = 613E8B0C1B9436930020228E /* Cash Register Filled-32.png */; };
 		613E8B0F1B94375C0020228E /* Coins-50.png in Resources */ = {isa = PBXBuildFile; fileRef = 613E8B0E1B94375C0020228E /* Coins-50.png */; };
 		613E8B111B943C4A0020228E /* PaymentViewCtrl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 613E8B101B943C4A0020228E /* PaymentViewCtrl.swift */; };
+		614E45AC1B96CAD600DFE1F9 /* IAPManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 614E45AB1B96CAD600DFE1F9 /* IAPManager.swift */; };
 		615BB2581B3BD47F00864052 /* DSUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 615BB2571B3BD47F00864052 /* DSUtil.swift */; };
 		615BB25A1B3BD4F800864052 /* HttpClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 615BB2591B3BD4F800864052 /* HttpClient.swift */; };
 		615BB25C1B3BD80300864052 /* Util.swift in Sources */ = {isa = PBXBuildFile; fileRef = 615BB25B1B3BD80300864052 /* Util.swift */; };
@@ -186,6 +187,7 @@
 		613E8B0C1B9436930020228E /* Cash Register Filled-32.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Cash Register Filled-32.png"; path = "icon/Cash Register Filled-32.png"; sourceTree = SOURCE_ROOT; };
 		613E8B0E1B94375C0020228E /* Coins-50.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Coins-50.png"; path = "icon/Coins-50.png"; sourceTree = SOURCE_ROOT; };
 		613E8B101B943C4A0020228E /* PaymentViewCtrl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaymentViewCtrl.swift; sourceTree = "<group>"; };
+		614E45AB1B96CAD600DFE1F9 /* IAPManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IAPManager.swift; sourceTree = "<group>"; };
 		615BB2571B3BD47F00864052 /* DSUtil.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DSUtil.swift; sourceTree = "<group>"; };
 		615BB2591B3BD4F800864052 /* HttpClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HttpClient.swift; sourceTree = "<group>"; };
 		615BB25B1B3BD80300864052 /* Util.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Util.swift; sourceTree = "<group>"; };
@@ -459,6 +461,7 @@
 				61ABA7F41B4FB92C0071F9D4 /* SideMenuViewCtrl.swift */,
 				610EA13E1B8EC0A700EB54B0 /* PurchaseViewCtrl.swift */,
 				613E8B101B943C4A0020228E /* PaymentViewCtrl.swift */,
+				614E45AB1B96CAD600DFE1F9 /* IAPManager.swift */,
 				615BB2631B3BFC5A00864052 /* Global.swift */,
 				61C5E58B1B4BDF5E008F1DEF /* CommonStruct.swift */,
 				613C58781B2AB1CE00461072 /* CustomCell.swift */,
@@ -700,6 +703,7 @@
 			files = (
 				61ABA7F21B4FB88B0071F9D4 /* MMDrawerVisualState.m in Sources */,
 				61C513ED1B5CFD4700921D2A /* CourseScoreViewCtrl.swift in Sources */,
+				614E45AC1B96CAD600DFE1F9 /* IAPManager.swift in Sources */,
 				61763E3A1B2ECD3A004A0DCD /* oneAdminTeacher.xcdatamodeld in Sources */,
 				61F5508D1B2A768900E26A5D /* SecondViewController.swift in Sources */,
 				61E574781B85B64900D2BD21 /* OutboxSendViewCtrl.swift in Sources */,
