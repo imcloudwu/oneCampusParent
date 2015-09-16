@@ -135,6 +135,8 @@ class PrepareViewCtrl: UIViewController {
         
         Global.DsnsList = dsnsList
         
+        Global.HasPrivilege = IsValidated()
+        
     }
     
     func GetMyAccountInfo(){

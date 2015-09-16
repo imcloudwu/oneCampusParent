@@ -115,9 +115,14 @@ class MessageViewCtrl: UIViewController,UITableViewDataSource,UITableViewDelegat
     
     func ReloadData(){
         
-        isFirstLoad = false
-        
         self.refreshControl.endRefreshing()
+        
+        if !Global.HasPrivilege{
+            ShowErrorAlert(self, "超過使用期限", "請安裝新版並進行點數加值")
+            return
+        }
+        
+        isFirstLoad = false
         
         progressTimer.StartProgress()
         

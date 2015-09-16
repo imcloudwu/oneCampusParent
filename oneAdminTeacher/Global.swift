@@ -21,7 +21,7 @@ public class Global{
     static var MyDeviceToken : String!
     static var AccessToken : String!
     static var RefreshToken : String!
-    static var DsnsList : [DsnsItem]!
+    static var DsnsList = [DsnsItem]()
     static var CurrentDsns : DsnsItem!
     static var Students = [Student]()
     static var CurrentStudent : Student!
@@ -30,6 +30,7 @@ public class Global{
     static var Alert : UIAlertController!
     static var MyChildList : [Student]!
     static var NeedRefreshChildList = false
+    static var HasPrivilege = false
     
     static var LastLoginDateTime : NSDate!
     static var MySchoolList = [DsnsItem]()
@@ -445,6 +446,45 @@ func GetCoinsBalance() -> String{
     }
     
     return "無法讀取"
+}
+
+func IsValidated() -> Bool{
+    
+    if Global.DsnsList.count == 0{
+        return true
+    }
+    
+    for dsns in Global.DsnsList{
+        
+        var con = GetCommonConnect(dsns.AccessPoint)
+        var err : DSFault!
+        var rsp = con.SendRequest("main.GetNow", bodyContent: "", &err)
+        
+        if err != nil{
+            continue
+        }
+        
+        var format:NSDateFormatter = NSDateFormatter()
+        format.dateFormat = "yyyy-MM-dd"
+        format.timeZone = NSTimeZone(name: "UTC")
+        
+        var nserror:NSError?
+        var xml = AEXMLDocument(xmlData: rsp.dataValue, error: &nserror)
+        
+        let now = xml?.root["Response"]["Time"].attributes["now"] as! String
+        let dateOnly = (now as NSString).substringToIndex(10)
+        
+        var currentDate = format.dateFromString(dateOnly)
+        var limitDate = format.dateFromString("2015-12-31")
+        
+        if currentDate > limitDate{
+            continue
+        }
+        
+        return true
+    }
+    
+    return false
 }
 
 

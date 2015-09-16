@@ -84,6 +84,13 @@ class ChildListViewCtrl: UIViewController,UITableViewDelegate,UITableViewDataSou
     
     func ReloadData(){
         
+        self.refreshControl.endRefreshing()
+        
+        if !Global.HasPrivilege{
+            ShowErrorAlert(self, "超過使用期限", "請安裝新版並進行點數加值")
+            return
+        }
+        
         DsnsResult.removeAll(keepCapacity: false)
         for dsns in Global.DsnsList{
             DsnsResult[dsns.Name] = false
@@ -92,6 +99,10 @@ class ChildListViewCtrl: UIViewController,UITableViewDelegate,UITableViewDataSou
         var tmpList = [Student]()
         
         progressTimer.StartProgress()
+        
+        if Global.DsnsList.count == 0{
+            progressTimer.StopProgress()
+        }
         
         for dsns in Global.DsnsList{
             
@@ -121,8 +132,6 @@ class ChildListViewCtrl: UIViewController,UITableViewDelegate,UITableViewDataSou
                 })
             })
         }
-        
-        self.refreshControl.endRefreshing()
     }
     
     func AllDone() -> Bool{
@@ -181,6 +190,13 @@ class ChildListViewCtrl: UIViewController,UITableViewDelegate,UITableViewDataSou
         cell.Photo.image = data.Photo
         cell.Label1.text = data.Name
         cell.Label2.text = data.SeatNo == "" ? "" : "座號: \(data.SeatNo) "
+        cell.student = data
+        
+        //UILongPressGestureRecognizer
+        var longPress = UILongPressGestureRecognizer(target: self, action: "LongPress:")
+        longPress.minimumPressDuration = 0.5
+        
+        cell.addGestureRecognizer(longPress)
         
         return  cell
     }
@@ -202,6 +218,36 @@ class ChildListViewCtrl: UIViewController,UITableViewDelegate,UITableViewDataSou
         }
         
         return 72
+    }
+    
+    //Mark : Delete Child Function
+    func LongPress(sender:UILongPressGestureRecognizer){
+        
+        if sender.state == UIGestureRecognizerState.Began{
+            var cell = sender.view as! StudentCell
+            
+            let menu = UIAlertController(title: "要刪除 \(cell.student.Name) 嗎?", message: "", preferredStyle: UIAlertControllerStyle.Alert)
+            
+            menu.addAction(UIAlertAction(title: "取消", style: UIAlertActionStyle.Cancel, handler: nil))
+            
+            menu.addAction(UIAlertAction(title: "是", style: UIAlertActionStyle.Destructive, handler: { (action) -> Void in
+                
+                var con = GetCommonConnect(cell.student.DSNS)
+                var err:DSFault!
+                con.SendRequest("main.RemoveChild", bodyContent: "<Request><StudentParent><StudentID>\(cell.student.ID)</StudentID></StudentParent></Request>", &err)
+                
+                if err != nil{
+                    ShowErrorAlert(self, "刪除失敗", err.message)
+                }
+                else{
+                    ShowErrorAlert(self, "刪除成功", "")
+                }
+                
+                self.ReloadData()
+            }))
+            
+            self.presentViewController(menu, animated: true, completion: nil)
+        }
     }
     
     func ToggleSideMenu(){
