@@ -56,7 +56,7 @@ class MessageViewCtrl: UIViewController,UITableViewDataSource,UITableViewDelegat
         
         progressTimer = ProgressTimer(progressBar: progress)
         
-        _dateFormate.dateFormat = "yyyy/MM/dd"
+        _dateFormate.dateFormat = "yyyy/M/d"
         _timeFormate.dateFormat = "HH:mm"
         
         _today = _dateFormate.stringFromDate(NSDate())
@@ -159,6 +159,9 @@ class MessageViewCtrl: UIViewController,UITableViewDataSource,UITableViewDelegat
     
     func GetNewMessageData() -> [MessageItem]{
         
+        var format:NSDateFormatter = NSDateFormatter()
+        format.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.000Z"
+        
         var retVal = [MessageItem]()
         
         //計算要更新的數量
@@ -179,8 +182,6 @@ class MessageViewCtrl: UIViewController,UITableViewDataSource,UITableViewDelegat
             //取得訊息
             var jsons = JSON(data: NotificationService.GetMessage("\(i)", accessToken: Global.AccessToken))
             
-            var format:NSDateFormatter = NSDateFormatter()
-            format.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.000Z"
             //format.timeZone = NSTimeZone(name: "Asia/Taipei")
             
             for (index,obj) in jsons {
@@ -295,8 +296,14 @@ class MessageViewCtrl: UIViewController,UITableViewDataSource,UITableViewDelegat
         var cell = tableView.dequeueReusableCellWithIdentifier("MessageCell") as! MessageCell
         cell.Title.font = data.IsNew ? _boldFont : _normalFont
         cell.Title.text = data.Title
+        
+        //是今日訊息就顯示時間,否則顯示日期
         cell.Date.text = _today == date ? _timeFormate.stringFromDate(data.Date) : date
+        
         cell.Date.textColor = data.IsNew ? UIColor(red: 19 / 255, green: 144 / 255, blue: 255 / 255, alpha: 1) : UIColor.lightGrayColor()
+        
+        cell.LittleAlarm.hidden = !data.IsNew
+        
         cell.Content.text = data.Content
         
         if data.Type == "normal"{
@@ -320,6 +327,9 @@ class MessageViewCtrl: UIViewController,UITableViewDataSource,UITableViewDelegat
             
             cell.Title.font = _normalFont
             cell.Date.textColor = data.IsNew ? UIColor(red: 19 / 255, green: 144 / 255, blue: 255 / 255, alpha: 1) : UIColor.lightGrayColor()
+            
+            cell.LittleAlarm.hidden = !data.IsNew
+            
         }
         
         let nextView = self.storyboard?.instantiateViewControllerWithIdentifier("MessageDetailViewCtrl") as! MessageDetailViewCtrl

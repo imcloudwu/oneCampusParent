@@ -45,6 +45,7 @@
 		612123F11B412A3B000AA07D /* Phone-32.png in Resources */ = {isa = PBXBuildFile; fileRef = 612123F01B412A3B000AA07D /* Phone-32.png */; };
 		612123F31B412BBB000AA07D /* StudentInfoViewCtrl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 612123F21B412BBB000AA07D /* StudentInfoViewCtrl.swift */; };
 		612D05201B6A3048002E1239 /* Menu-24.png in Resources */ = {isa = PBXBuildFile; fileRef = 612D051F1B6A3048002E1239 /* Menu-24.png */; };
+		61339E531BB29E9200757A46 /* KYCircularProgress.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61339E521BB29E9200757A46 /* KYCircularProgress.swift */; };
 		6136ED5D1B3D0C560049E632 /* PrepareViewCtrl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6136ED5C1B3D0C560049E632 /* PrepareViewCtrl.swift */; };
 		613C58791B2AB1CE00461072 /* CustomCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 613C58781B2AB1CE00461072 /* CustomCell.swift */; };
 		613C58811B2AC27D00461072 /* DetailViewCtrl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 613C58801B2AC27D00461072 /* DetailViewCtrl.swift */; };
@@ -179,6 +180,7 @@
 		612123F01B412A3B000AA07D /* Phone-32.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Phone-32.png"; sourceTree = "<group>"; };
 		612123F21B412BBB000AA07D /* StudentInfoViewCtrl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StudentInfoViewCtrl.swift; sourceTree = "<group>"; };
 		612D051F1B6A3048002E1239 /* Menu-24.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Menu-24.png"; path = "icon/Menu-24.png"; sourceTree = SOURCE_ROOT; };
+		61339E521BB29E9200757A46 /* KYCircularProgress.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KYCircularProgress.swift; sourceTree = "<group>"; };
 		6136ED5C1B3D0C560049E632 /* PrepareViewCtrl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrepareViewCtrl.swift; sourceTree = "<group>"; };
 		613C58781B2AB1CE00461072 /* CustomCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomCell.swift; sourceTree = "<group>"; };
 		613C58801B2AC27D00461072 /* DetailViewCtrl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailViewCtrl.swift; sourceTree = "<group>"; };
@@ -495,6 +497,7 @@
 				61072AD41B2E9E2A00554885 /* ss.swift */,
 				61072AD61B2EB25700554885 /* ee.swift */,
 				613C58801B2AC27D00461072 /* DetailViewCtrl.swift */,
+				61339E521BB29E9200757A46 /* KYCircularProgress.swift */,
 				61F5508E1B2A768900E26A5D /* Main.storyboard */,
 				61F550911B2A768900E26A5D /* Images.xcassets */,
 				61F550931B2A768900E26A5D /* LaunchScreen.xib */,
@@ -724,6 +727,7 @@
 				615BB25A1B3BD4F800864052 /* HttpClient.swift in Sources */,
 				610EA13F1B8EC0A700EB54B0 /* PurchaseViewCtrl.swift in Sources */,
 				61E5747E1B85C2E900D2BD21 /* WatchReaderListViewCtrl.swift in Sources */,
+				61339E531BB29E9200757A46 /* KYCircularProgress.swift in Sources */,
 				615BB2601B3BE3FC00864052 /* OAuthHelper.swift in Sources */,
 				61ABA7F31B4FB88B0071F9D4 /* UIViewController+MMDrawerController.m in Sources */,
 				61E574901B85C47100D2BD21 /* PDChart.swift in Sources */,

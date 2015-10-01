@@ -132,7 +132,7 @@ class ScanCodeViewCtrl: UIViewController,AVCaptureMetadataOutputObjectsDelegate,
                 return
             }
             
-            var rsp = con.sendRequest("AddApplicationRef", bodyContent: "<Request><Applications><Application><AccessPoint>\(server)</AccessPoint><Type>dynpkg</Type></Application></Applications></Request>", &err)
+            var rsp = con.SendRequest("AddApplicationRef", bodyContent: "<Request><Applications><Application><AccessPoint>\(server)</AccessPoint><Type>dynpkg</Type></Application></Applications></Request>", &err)
             
             if err != nil{
                 ShowErrorAlert(self, "過程發生錯誤", err.message)
@@ -170,7 +170,7 @@ class ScanCodeViewCtrl: UIViewController,AVCaptureMetadataOutputObjectsDelegate,
             return
         }
         
-        var rsp = con.sendRequest("Join.AsParent", bodyContent: "<Request><ParentCode>\(_Code)</ParentCode><Relationship>iOS Parent</Relationship></Request>", &err)
+        var rsp = con.SendRequest("Join.AsParent", bodyContent: "<Request><ParentCode>\(_Code)</ParentCode><Relationship>iOS Parent</Relationship></Request>", &err)
         
         if err != nil{
             ShowErrorAlert(self, "過程發生錯誤", err.message)

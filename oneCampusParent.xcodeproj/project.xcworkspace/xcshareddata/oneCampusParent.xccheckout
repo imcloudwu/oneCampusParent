@@ -7,14 +7,14 @@
 	<key>IDESourceControlProjectIdentifier</key>
 	<string>687A28C9-74DF-4715-AC18-CEBEDD328011</string>
 	<key>IDESourceControlProjectName</key>
-	<string>project</string>
+	<string>oneCampusParent</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
 		<key>EFF4C7E5EC05BBA073264776E6032D107D98CFD7</key>
 		<string>https://github.com/imcloudwu/oneCampusParent.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
-	<string>oneCampusParent.xcodeproj/project.xcworkspace</string>
+	<string>oneCampusParent.xcodeproj</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
 		<key>EFF4C7E5EC05BBA073264776E6032D107D98CFD7</key>

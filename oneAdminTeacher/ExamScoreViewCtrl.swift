@@ -277,7 +277,7 @@ class ExamScoreViewCtrl: UIViewController,UITableViewDelegate,UITableViewDataSou
     
     func SetScoreCalcRule(){
         var err : DSFault!
-        var rsp = _con.sendRequest("evaluateScoreJH.GetScoreCalcRule", bodyContent: "<Request><StudentID>\(StudentData.ID)</StudentID></Request>", &err)
+        var rsp = _con.SendRequest("evaluateScoreJH.GetScoreCalcRule", bodyContent: "<Request><StudentID>\(StudentData.ID)</StudentID></Request>", &err)
         
         if err != nil{
             ShowErrorAlert(self,"取得資料發生錯誤",err.message)
@@ -303,7 +303,7 @@ class ExamScoreViewCtrl: UIViewController,UITableViewDelegate,UITableViewDataSou
         var retVal = [ExamScoreItem]()
         
         var err : DSFault!
-        var rsp = _con.sendRequest("evaluateScoreSH.GetExamScore", bodyContent: "<Request><Condition><StudentID>\(StudentData.ID)</StudentID></Condition></Request>", &err)
+        var rsp = _con.SendRequest("evaluateScoreSH.GetExamScore", bodyContent: "<Request><Condition><StudentID>\(StudentData.ID)</StudentID></Condition></Request>", &err)
         
         if err != nil{
             ShowErrorAlert(self,"取得資料發生錯誤",err.message)
@@ -353,7 +353,7 @@ class ExamScoreViewCtrl: UIViewController,UITableViewDelegate,UITableViewDataSou
         var retVal = [ExamScoreItem]()
         
         var err : DSFault!
-        var rsp = _con.sendRequest("evaluateScoreJH.GetExamScore", bodyContent: "<Request><Condition><StudentID>\(StudentData.ID)</StudentID></Condition></Request>", &err)
+        var rsp = _con.SendRequest("evaluateScoreJH.GetExamScore", bodyContent: "<Request><Condition><StudentID>\(StudentData.ID)</StudentID></Condition></Request>", &err)
         
         if err != nil{
             ShowErrorAlert(self,"取得資料發生錯誤",err.message)
@@ -528,7 +528,8 @@ class ExamScoreViewCtrl: UIViewController,UITableViewDelegate,UITableViewDataSou
             
             if cell == nil{
                 cell = UITableViewCell(style: UITableViewCellStyle.Value1, reuseIdentifier: "summaryItem")
-                cell?.textLabel?.textColor = UIColor(red: 19/255, green: 144/255, blue: 255/255, alpha: 1)
+                cell?.backgroundColor = UIColor(red: 219/255, green: 228/255, blue: 238/255, alpha: 1)
+                //cell?.textLabel?.textColor = UIColor(red: 19/255, green: 144/255, blue: 255/255, alpha: 1)
             }
             
             cell!.textLabel?.text = data.Title
@@ -538,7 +539,7 @@ class ExamScoreViewCtrl: UIViewController,UITableViewDelegate,UITableViewDataSou
                 cell!.detailTextLabel?.textColor = UIColor.redColor()
             }
             else{
-                cell!.detailTextLabel?.textColor = UIColor.blackColor()
+                cell!.detailTextLabel?.textColor = UIColor.darkGrayColor()
             }
             
             return cell!
@@ -626,14 +627,12 @@ class ExamScoreViewCtrl: UIViewController,UITableViewDelegate,UITableViewDataSou
     }
     
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat{
-        if _isJH && _displayData[indexPath.row].OtherInfo == "summaryItem"{
-            return 30
-        }
-        else if !_isJH && _displayData[indexPath.row].OtherInfo != "summaryItem"{
+        
+        if _displayData[indexPath.row].OtherInfo == "summaryItem"{
             return 30
         }
         
-        return 50
+        return _isJH ? 50 : 30
     }
     
 }

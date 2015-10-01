@@ -22,7 +22,12 @@ class KeyinViewCtrl: UIViewController,UITableViewDelegate,UITableViewDataSource,
     @IBOutlet weak var code: UITextField!
     @IBOutlet weak var relationship: UITextField!
     
+    @IBOutlet weak var idNumber: UITextField!
+    @IBOutlet weak var studentNumber: UITextField!
+    
     @IBOutlet weak var submitBtn: UIButton!
+    
+    @IBOutlet weak var remindLabel: UILabel!
     
     var webView : UIWebView!
     var _DsnsItem : DsnsItem!
@@ -32,6 +37,9 @@ class KeyinViewCtrl: UIViewController,UITableViewDelegate,UITableViewDataSource,
         
         submitBtn.layer.masksToBounds = true
         submitBtn.layer.cornerRadius = 5
+        
+        remindLabel.layer.masksToBounds = true
+        remindLabel.layer.cornerRadius = 5
         
         webView = UIWebView()
         webView.hidden = true
@@ -46,6 +54,8 @@ class KeyinViewCtrl: UIViewController,UITableViewDelegate,UITableViewDataSource,
         server.delegate = self
         code.delegate = self
         relationship.delegate = self
+        idNumber.delegate = self
+        studentNumber.delegate = self
         
         server.addTarget(self, action: "GetServerName", forControlEvents: UIControlEvents.EditingChanged)
         
@@ -78,6 +88,26 @@ class KeyinViewCtrl: UIViewController,UITableViewDelegate,UITableViewDataSource,
         
         if autoView.hidden == false{
             autoView.hidden = true
+        }
+        
+        SetExtraTextFiled()
+        
+        return true
+    }
+    
+    func textFieldDidBeginEditing(textField: UITextField){
+        
+        if textField == code{
+            idNumber.enabled = false
+            studentNumber.enabled = false
+        }
+        
+    }
+    
+    func textFieldShouldEndEditing(textField: UITextField) -> Bool{
+        
+        if textField == code{
+            SetExtraTextFiled()
         }
         
         return true
@@ -168,6 +198,22 @@ class KeyinViewCtrl: UIViewController,UITableViewDelegate,UITableViewDataSource,
             serverName = server.text
         }
         
+        if serverName.isEmpty{
+            ShowErrorAlert(self, "請輸入學校或主機名稱", "")
+            return
+        }
+        
+        if code.text.isEmpty{
+            if idNumber.text.isEmpty && studentNumber.text.isEmpty{
+                ShowErrorAlert(self, "家長代碼或學生資料必須擇一填寫", "")
+                return
+            }
+            else if idNumber.text.isEmpty || studentNumber.text.isEmpty{
+                ShowErrorAlert(self, "學生資料必須填寫完整", "")
+                return
+            }
+        }
+        
         AddApplicationRef(serverName)
     }
     
@@ -213,7 +259,7 @@ class KeyinViewCtrl: UIViewController,UITableViewDelegate,UITableViewDataSource,
         self.webView.hidden = false
     }
     
-    func JoinAsParent(){
+    func JoinWithCode(code:String){
         
         let relationShip = self.relationship.text.isEmpty ? "iOS Parent" : self.relationship.text
         
@@ -226,7 +272,7 @@ class KeyinViewCtrl: UIViewController,UITableViewDelegate,UITableViewDataSource,
             return
         }
         
-        var rsp = con.sendRequest("Join.AsParent", bodyContent: "<Request><ParentCode>\(code.text)</ParentCode><Relationship>\(relationShip)</Relationship></Request>", &err)
+        var rsp = con.SendRequest("Join.AsParent", bodyContent: "<Request><ParentCode>\(code)</ParentCode><Relationship>\(relationShip)</Relationship></Request>", &err)
         
         if err != nil{
             ShowErrorAlert(self, "過程發生錯誤", err.message)
@@ -254,6 +300,77 @@ class KeyinViewCtrl: UIViewController,UITableViewDelegate,UITableViewDataSource,
             ShowErrorAlert(self, "加入失敗", "發生不明的錯誤,請回報給開發人員")
         }
         
+    }
+    
+    func JoinWithBasicInfo(idNumber:String,studentNumber:String){
+        
+        let relationShip = self.relationship.text.isEmpty ? "Basic iOS Parent" : self.relationship.text
+        
+        var err : DSFault!
+        var con = Connection()
+        con.connect(_DsnsItem.AccessPoint, "1campus.mobile.guest", SecurityToken.createOAuthToken(Global.AccessToken), &err)
+        
+        if err != nil{
+            ShowErrorAlert(self, "過程發生錯誤", err.message)
+            return
+        }
+        
+        var rsp = con.sendRequest("_.ConfirmMyChild", bodyContent: "<Request><StudentIdNumber>\(idNumber)</StudentIdNumber><StudentNumber>\(studentNumber)</StudentNumber></Request>", &err)
+        
+        if rsp == nil || rsp.isEmpty{
+            ShowErrorAlert(self, "該校查詢不到此學生資料,無法加入", "")
+            return
+        }
+        
+        var nserr:NSError?
+        var xml = AEXMLDocument(xmlData: rsp.dataValue, error: &nserr)
+        
+        var Id = ""
+        var Name = ""
+        
+        if let id = xml?.root["Response"]["Id"].stringValue{
+            Id = id
+        }
+        
+        if let name = xml?.root["Response"]["Name"].stringValue{
+            Name = name
+        }
+        
+        if !Id.isEmpty && !Name.isEmpty{
+            
+            let confirm = UIAlertController(title: "您的小孩是 \(Name) 嗎？", message: "", preferredStyle: UIAlertControllerStyle.Alert)
+            
+            confirm.addAction(UIAlertAction(title: "取消", style: UIAlertActionStyle.Cancel, handler: nil))
+            confirm.addAction(UIAlertAction(title: "確認", style: UIAlertActionStyle.Destructive, handler: { (action) -> Void in
+                
+                var rsp = con.sendRequest("_.JoinAsParent", bodyContent: "<Request><StudentId>\(Id)</StudentId><Relationship>\(self.relationship.text)</Relationship></Request>", &err)
+                
+                if err != nil{
+                    ShowErrorAlert(self, "過程發生錯誤", err.message)
+                    return
+                }
+                
+                Global.NeedRefreshChildList = true
+                
+                self.navigationController?.popViewControllerAnimated(true)
+            }))
+            
+            self.presentViewController(confirm, animated: true, completion: nil)
+        }
+        else{
+            ShowErrorAlert(self, "該校查詢不到此學生資料,無法加入", "")
+            return
+        }
+    }
+    
+    func JoinAsParent(){
+        
+        if !code.text.isEmpty{
+            JoinWithCode(code.text)
+        }
+        else{
+            JoinWithBasicInfo(idNumber.text,studentNumber: studentNumber.text)
+        }
     }
     
     func webView(webView: UIWebView, didFailLoadWithError error: NSError){
@@ -300,5 +417,17 @@ class KeyinViewCtrl: UIViewController,UITableViewDelegate,UITableViewDataSource,
         }
         
         return false
+    }
+    
+    func SetExtraTextFiled(){
+        
+        if code.text.isEmpty{
+            idNumber.enabled = true
+            studentNumber.enabled = true
+        }
+        else{
+            idNumber.enabled = false
+            studentNumber.enabled = false
+        }
     }
 }

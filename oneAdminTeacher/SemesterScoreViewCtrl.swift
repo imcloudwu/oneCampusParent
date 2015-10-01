@@ -26,6 +26,8 @@ class SemesterScoreViewCtrl: UIViewController,UITableViewDelegate,UITableViewDat
     
     var ParentNavigationItem : UINavigationItem?
     
+    var SummaryDic = [String:String]()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -114,6 +116,8 @@ class SemesterScoreViewCtrl: UIViewController,UITableViewDelegate,UITableViewDat
     
     func GetJhItems(currentData:ScoreInfoItem) -> [DisplayItem]{
         
+        SummaryDic.removeAll(keepCapacity: false)
+        
         var retVal = [DisplayItem]()
         
         var underSixtyDomainCount = 0
@@ -154,14 +158,22 @@ class SemesterScoreViewCtrl: UIViewController,UITableViewDelegate,UITableViewDat
             }
         }
         
-        retVal.insert(DisplayItem(Title: "課程學期成績", Value: currentData.CourseLearnScore, OtherInfo: "summaryItem", ColorAlarm: currentData.CourseLearnScore.doubleValue < 60), atIndex: 0)
-        retVal.insert(DisplayItem(Title: "學習領域成績", Value: currentData.LearnDomainScore, OtherInfo: "summaryItem", ColorAlarm: currentData.LearnDomainScore.doubleValue < 60), atIndex: 0)
-        retVal.insert(DisplayItem(Title: "不及格領域數", Value: "\(underSixtyDomainCount)", OtherInfo: "summaryItem", ColorAlarm: false), atIndex: 0)
+//        retVal.insert(DisplayItem(Title: "課程學期成績", Value: currentData.CourseLearnScore, OtherInfo: "summaryItem", ColorAlarm: currentData.CourseLearnScore.doubleValue < 60), atIndex: 0)
+//        retVal.insert(DisplayItem(Title: "學習領域成績", Value: currentData.LearnDomainScore, OtherInfo: "summaryItem", ColorAlarm: currentData.LearnDomainScore.doubleValue < 60), atIndex: 0)
+//        retVal.insert(DisplayItem(Title: "不及格領域數", Value: "\(underSixtyDomainCount)", OtherInfo: "summaryItem", ColorAlarm: false), atIndex: 0)
+        
+        retVal.insert(DisplayItem(Title: "", Value: "", OtherInfo: "newJHSummaryItem", ColorAlarm: false), atIndex: 0)
+        
+        SummaryDic["課程學期成績"] = "\(currentData.CourseLearnScore)"
+        SummaryDic["學習領域成績"] = "\(currentData.LearnDomainScore)"
+        SummaryDic["不及格領域數"] = "\(underSixtyDomainCount)"
         
         return retVal
     }
     
     func GetShItems(currentData:ScoreInfoItem) -> [DisplayItem]{
+        
+        SummaryDic.removeAll(keepCapacity: false)
         
         var retVal = [DisplayItem]()
         
@@ -207,33 +219,45 @@ class SemesterScoreViewCtrl: UIViewController,UITableViewDelegate,UITableViewDat
         必修 = 校訂必修 + 部訂必修
         選修 = 校訂選修 + 部訂選修
         
-        let 實得item = DisplayItem(Title: "實得", Value: "\(實得)", OtherInfo: "summaryItem", ColorAlarm: false)
+//        let 實得item = DisplayItem(Title: "實得", Value: "\(實得)", OtherInfo: "summaryItem", ColorAlarm: false)
+//        
+//        let 已修item = DisplayItem(Title: "已修", Value: "\(已修)", OtherInfo: "summaryItem", ColorAlarm: false)
+//        
+//        let 必修item = DisplayItem(Title: "必修", Value: "\(必修)", OtherInfo: "summaryItem", ColorAlarm: false)
+//        
+//        let 選修item = DisplayItem(Title: "選修", Value: "\(選修)", OtherInfo: "summaryItem", ColorAlarm: false)
+//        
+//        let 實習item = DisplayItem(Title: "實習", Value: "\(實習)", OtherInfo: "summaryItem", ColorAlarm: false)
+//        
+//        let 校訂必修item = DisplayItem(Title: "校訂必修", Value: "\(校訂必修)", OtherInfo: "summaryItem", ColorAlarm: false)
+//        
+//        let 校訂選修item = DisplayItem(Title: "校訂選修", Value: "\(校訂選修)", OtherInfo: "summaryItem", ColorAlarm: false)
+//        
+//        let 部訂必修item = DisplayItem(Title: "部訂必修", Value: "\(部訂必修)", OtherInfo: "summaryItem", ColorAlarm: false)
+//        
+//        let 部訂選修item = DisplayItem(Title: "部訂選修", Value: "\(部訂選修)", OtherInfo: "summaryItem", ColorAlarm: false)
+//        
+//        retVal.insert(部訂選修item, atIndex: 0)
+//        retVal.insert(部訂必修item, atIndex: 0)
+//        retVal.insert(校訂選修item, atIndex: 0)
+//        retVal.insert(校訂必修item, atIndex: 0)
+//        retVal.insert(實習item, atIndex: 0)
+//        retVal.insert(選修item, atIndex: 0)
+//        retVal.insert(必修item, atIndex: 0)
+//        retVal.insert(已修item, atIndex: 0)
+//        retVal.insert(實得item, atIndex: 0)
         
-        let 已修item = DisplayItem(Title: "已修", Value: "\(已修)", OtherInfo: "summaryItem", ColorAlarm: false)
+        retVal.insert(DisplayItem(Title: "", Value: "", OtherInfo: "newSHSummaryItem", ColorAlarm: false), atIndex: 0)
         
-        let 必修item = DisplayItem(Title: "必修", Value: "\(必修)", OtherInfo: "summaryItem", ColorAlarm: false)
-        
-        let 選修item = DisplayItem(Title: "選修", Value: "\(選修)", OtherInfo: "summaryItem", ColorAlarm: false)
-        
-        let 實習item = DisplayItem(Title: "實習", Value: "\(實習)", OtherInfo: "summaryItem", ColorAlarm: false)
-        
-        let 校訂必修item = DisplayItem(Title: "校訂必修", Value: "\(校訂必修)", OtherInfo: "summaryItem", ColorAlarm: false)
-        
-        let 校訂選修item = DisplayItem(Title: "校訂選修", Value: "\(校訂選修)", OtherInfo: "summaryItem", ColorAlarm: false)
-        
-        let 部訂必修item = DisplayItem(Title: "部訂必修", Value: "\(部訂必修)", OtherInfo: "summaryItem", ColorAlarm: false)
-        
-        let 部訂選修item = DisplayItem(Title: "部訂選修", Value: "\(部訂選修)", OtherInfo: "summaryItem", ColorAlarm: false)
-        
-        retVal.insert(部訂選修item, atIndex: 0)
-        retVal.insert(部訂必修item, atIndex: 0)
-        retVal.insert(校訂選修item, atIndex: 0)
-        retVal.insert(校訂必修item, atIndex: 0)
-        retVal.insert(實習item, atIndex: 0)
-        retVal.insert(選修item, atIndex: 0)
-        retVal.insert(必修item, atIndex: 0)
-        retVal.insert(已修item, atIndex: 0)
-        retVal.insert(實得item, atIndex: 0)
+        SummaryDic["實得"] = "\(實得)"
+        SummaryDic["已修"] = "\(已修)"
+        SummaryDic["必修"] = "\(必修)"
+        SummaryDic["選修"] = "\(選修)"
+        SummaryDic["實習"] = "\(實習)"
+        SummaryDic["校訂必修"] = "\(校訂必修)"
+        SummaryDic["校訂選修"] = "\(校訂選修)"
+        SummaryDic["部訂必修"] = "\(部訂必修)"
+        SummaryDic["部訂選修"] = "\(部訂選修)"
         
         return retVal
     }
@@ -243,7 +267,7 @@ class SemesterScoreViewCtrl: UIViewController,UITableViewDelegate,UITableViewDat
         var nserr : NSError?
         var retVal = [ScoreInfoItem]()
         
-        var rsp = _con.sendRequest("semesterScoreSH.GetChildSemsScore", bodyContent: "<Request><All></All><RefStudentId>\(StudentData.ID)</RefStudentId></Request>", &err)
+        var rsp = _con.SendRequest("semesterScoreSH.GetChildSemsScore", bodyContent: "<Request><All></All><RefStudentId>\(StudentData.ID)</RefStudentId></Request>", &err)
         
         if err != nil{
             ShowErrorAlert(self,"取得資料發生錯誤",err.message)
@@ -338,12 +362,72 @@ class SemesterScoreViewCtrl: UIViewController,UITableViewDelegate,UITableViewDat
         
         let data = _displayData[indexPath.row]
         
+        if data.OtherInfo == "newSHSummaryItem"{
+            var cell = tableView.dequeueReusableCellWithIdentifier("SHSemesterScoreSummaryCell") as? SHSemesterScoreSummaryCell
+            
+            if let 實得 = SummaryDic["實得"]{
+                if let 已修 = SummaryDic["已修"]{
+                    cell?.Summary.text = "\(實得) / \(已修)"
+                }
+            }
+            
+            if let 必修 = SummaryDic["必修"]{
+                cell?.必修.text = "\(必修)"
+            }
+            
+            if let 選修 = SummaryDic["選修"]{
+                cell?.選修.text = "\(選修)"
+            }
+            
+            if let 校訂必修 = SummaryDic["校訂必修"]{
+                cell?.校訂必修.text = "\(校訂必修)"
+            }
+            
+            if let 校訂選修 = SummaryDic["校訂選修"]{
+                cell?.校訂選修.text = "\(校訂選修)"
+            }
+            
+            if let 部訂必修 = SummaryDic["部訂必修"]{
+                cell?.部訂必修.text = "\(部訂必修)"
+            }
+            
+            if let 部訂選修 = SummaryDic["部訂選修"]{
+                cell?.部訂選修.text = "\(部訂選修)"
+            }
+            
+            if let 實習 = SummaryDic["實習"]{
+                cell?.實習.text = "\(實習)"
+            }
+            
+            return cell!
+        }
+        
+        if data.OtherInfo == "newJHSummaryItem"{
+            
+            var cell = tableView.dequeueReusableCellWithIdentifier("JHSemesterScoreSummaryCell") as? JHSemesterScoreSummaryCell
+            
+            if let 不及格領域數 = SummaryDic["不及格領域數"]{
+                cell?.不及格領域數.text = "\(不及格領域數)"
+            }
+            
+            if let 學習領域成績 = SummaryDic["學習領域成績"]{
+                cell?.學習領域成績.text = "\(學習領域成績)"
+            }
+            
+            if let 課程學期成績 = SummaryDic["課程學期成績"]{
+                cell?.課程學期成績.text = "\(課程學期成績)"
+            }
+            
+            return cell!
+        }
+        
         if data.OtherInfo == "summaryItem"{
             var cell = tableView.dequeueReusableCellWithIdentifier("summaryItem") as? UITableViewCell
             
             if cell == nil{
                 cell = UITableViewCell(style: UITableViewCellStyle.Value1, reuseIdentifier: "summaryItem")
-                cell?.textLabel?.textColor = UIColor(red: 19/255, green: 144/255, blue: 255/255, alpha: 1)
+                cell?.backgroundColor = UIColor(red: 219/255, green: 228/255, blue: 238/255, alpha: 1)
+                //cell?.textLabel?.textColor = UIColor(red: 19/255, green: 144/255, blue: 255/255, alpha: 1)
             }
             
             cell!.textLabel?.text = data.Title
@@ -353,7 +437,7 @@ class SemesterScoreViewCtrl: UIViewController,UITableViewDelegate,UITableViewDat
                 cell!.detailTextLabel?.textColor = UIColor.redColor()
             }
             else{
-                cell!.detailTextLabel?.textColor = UIColor.lightGrayColor()
+                cell!.detailTextLabel?.textColor = UIColor.darkGrayColor()
             }
             
             return cell!
@@ -379,11 +463,20 @@ class SemesterScoreViewCtrl: UIViewController,UITableViewDelegate,UITableViewDat
     }
     
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat{
+        
+        if _displayData[indexPath.row].OtherInfo == "newSHSummaryItem"{
+            return 114
+        }
+        
+        if _displayData[indexPath.row].OtherInfo == "newJHSummaryItem"{
+            return 100
+        }
+        
         if _displayData[indexPath.row].OtherInfo == "summaryItem"{
             return 30
         }
         
-        return 62
+        return 58
     }
     
     

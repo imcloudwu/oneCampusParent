@@ -235,7 +235,7 @@ public class AccessPoint {
         var data = HttpClient.Get(geturl, err: &e)
         
         let span = CFAbsoluteTimeGetCurrent() - before
-        println("DSNS Resolve Time(\(dsns))：\(span)")
+        //println("DSNS Resolve Time(\(dsns))：\(span)")
         
         if e != nil {
             err = DSFault();

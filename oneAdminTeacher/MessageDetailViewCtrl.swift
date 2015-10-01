@@ -80,10 +80,12 @@ class MessageDetailViewCtrl: UIViewController{
             if MessageData.Type != "normal"{
                 //有投過的訊息,按鈕長不一樣
                 if MessageData.Voted{
-                    self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "Starred Ticket Filled-25.png"), style: UIBarButtonItemStyle.Done, target: self, action: "Vote")
+                    self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "進行投票", style: UIBarButtonItemStyle.Plain, target: self, action: "Vote")
+                    //self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "Starred Ticket Filled-25.png"), style: UIBarButtonItemStyle.Done, target: self, action: "Vote")
                 }
                 else{
-                    self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "Starred Ticket-25.png"), style: UIBarButtonItemStyle.Done, target: self, action: "Vote")
+                    self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "進行投票", style: UIBarButtonItemStyle.Done, target: self, action: "Vote")
+                    //self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "Starred Ticket-25.png"), style: UIBarButtonItemStyle.Done, target: self, action: "Vote")
                 }
             }
         }
@@ -161,7 +163,14 @@ class MessageDetailViewCtrl: UIViewController{
                 newLabel.userInteractionEnabled = true
                 newLabel.tag = index
                 newLabel.numberOfLines = 0
-                newLabel.text = Options[index].Title
+                
+                if let tmp = find(Answers, index){
+                    newLabel.text = " ◉ " + Options[index].Title
+                }
+                else{
+                    newLabel.text = " ◯ " + Options[index].Title
+                }
+                
                 newLabel.backgroundColor = UIColor(red: 0.0/255, green: 150.0/255, blue: 136.0/255, alpha: 0.1)
                 newLabel.frame.size.width = ContentLabel.frame.size.width
                 newLabel.frame.size.height = 48.0
@@ -193,12 +202,12 @@ class MessageDetailViewCtrl: UIViewController{
         if CanMultiple{
             if let index = find(Answers, view.tag){
                 Answers.removeAtIndex(index)
-                view.text = Options[view.tag].Title
+                view.text = " ◯ " +  Options[view.tag].Title
                 //cell!.accessoryType = UITableViewCellAccessoryType.None
             }
             else{
                 Answers.append(view.tag)
-                view.text = "✓ " + Options[view.tag].Title
+                view.text = " ◉ " + Options[view.tag].Title
                 //cell!.accessoryType = UITableViewCellAccessoryType.Checkmark
             }
         }
@@ -208,10 +217,10 @@ class MessageDetailViewCtrl: UIViewController{
             Answers.append(view.tag)
             
             for index in 0...Options.count - 1{
-                OptionLabels[index].text = Options[index].Title
+                OptionLabels[index].text = " ◯ " + Options[index].Title
             }
             
-            view.text = "✓ " + Options[view.tag].Title
+            view.text = " ◉ " + Options[view.tag].Title
         }
     }
     
@@ -230,17 +239,21 @@ class MessageDetailViewCtrl: UIViewController{
             
             if CanMultiple{
                 NotificationService.ReplyMultiple(MessageData.Id, accessToken: Global.AccessToken, answers: Answers)
-                self.navigationController?.popViewControllerAnimated(true)
             }
             else{
                 NotificationService.ReplySingle(MessageData.Id, accessToken: Global.AccessToken, answerIndex: Answers[0])
-                self.navigationController?.popViewControllerAnimated(true)
             }
             
             MessageData.Voted = true
             MessageCoreData.SaveCatchData(MessageData)
             
             NotificationService.ExecuteNewMessageDelegate()
+            
+            Global.MyToast.ToastMessage(self.view, callback: { () -> () in
+                self.navigationController?.popViewControllerAnimated(true)
+            })
+            
+            //self.navigationController?.popViewControllerAnimated(true)
         }
         else{
             ShowErrorAlert(self, "錯誤", "必須選擇一個以上的選項")
@@ -299,9 +312,14 @@ class MessageDetailViewCtrl: UIViewController{
         
         if let single = json["reply"].number {
             MustVote = false
+            Answers.append(single.integerValue)
         }
         else if let multiple = json["reply"].array {
             MustVote = false
+            
+            for m in multiple{
+                Answers.append(m.intValue)
+            }
         }
         else{
             MustVote = true
@@ -309,7 +327,7 @@ class MessageDetailViewCtrl: UIViewController{
         
         for option in json["options"].arrayValue{
             //Options.append(option.stringValue)
-            Options.append(VoteItem(Title: "  " + option.stringValue, Value: 0))
+            Options.append(VoteItem(Title: option.stringValue, Value: 0))
         }
     }
     

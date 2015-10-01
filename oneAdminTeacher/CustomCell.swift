@@ -8,6 +8,33 @@
 
 import UIKit
 
+class SHSemesterScoreSummaryCell : UITableViewCell{
+    
+    @IBOutlet weak var Summary: UILabel!
+    @IBOutlet weak var 必修: UILabel!
+    @IBOutlet weak var 選修: UILabel!
+    @IBOutlet weak var 校訂必修: UILabel!
+    @IBOutlet weak var 校訂選修: UILabel!
+    @IBOutlet weak var 部訂必修: UILabel!
+    @IBOutlet weak var 部訂選修: UILabel!
+    @IBOutlet weak var 實習: UILabel!
+    
+    override func awakeFromNib() {
+        
+    }
+}
+
+class JHSemesterScoreSummaryCell : UITableViewCell{
+    
+    @IBOutlet weak var 不及格領域數: UILabel!
+    @IBOutlet weak var 學習領域成績: UILabel!
+    @IBOutlet weak var 課程學期成績: UILabel!
+    
+    override func awakeFromNib() {
+        
+    }
+}
+
 class StudentCell : UITableViewCell{
     
     @IBOutlet weak var Photo: UIImageView!
@@ -108,10 +135,15 @@ class MessageCell : UITableViewCell{
     @IBOutlet weak var Date: UILabel!
     @IBOutlet weak var Icon: UIImageView!
     @IBOutlet weak var IcomFrame: UIView!
+    @IBOutlet weak var LittleAlarm: UILabel!
+    
     
     override func awakeFromNib() {
         IcomFrame.layer.cornerRadius = IcomFrame.frame.size.width / 2
         IcomFrame.layer.masksToBounds = true
+        
+        LittleAlarm.layer.cornerRadius = LittleAlarm.frame.size.width / 2
+        LittleAlarm.layer.masksToBounds = true
     }
 }
 

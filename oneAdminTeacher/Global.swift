@@ -40,6 +40,10 @@ public class Global{
     
     static var LockQueue = dispatch_queue_create("LockQueue", nil)
     
+    static var ScreenSize: CGRect = UIScreen.mainScreen().bounds
+    
+    static var MyToast = Toast()
+    
     static func Reset(){
         MyPhoto = nil
         ClassList = nil
@@ -486,6 +490,8 @@ func IsValidated() -> Bool{
     
     return false
 }
+
+
 
 
 
