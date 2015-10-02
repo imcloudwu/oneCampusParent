@@ -19,6 +19,7 @@
 		6105322A1B8AC1690003C936 /* Plus Math-100.png in Resources */ = {isa = PBXBuildFile; fileRef = 610532291B8AC1690003C936 /* Plus Math-100.png */; };
 		6105322E1B8ACC290003C936 /* shutterstock_196751174.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 6105322D1B8ACC290003C936 /* shutterstock_196751174.jpg */; };
 		6105832C1B4BAB4500274EEA /* ExamScoreViewCtrl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6105832B1B4BAB4500274EEA /* ExamScoreViewCtrl.swift */; };
+		610641A61BBE421800BA83BF /* Checked-32.png in Resources */ = {isa = PBXBuildFile; fileRef = 610641A51BBE421800BA83BF /* Checked-32.png */; };
 		61072AD51B2E9E2A00554885 /* ss.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61072AD41B2E9E2A00554885 /* ss.swift */; };
 		61072AD71B2EB25700554885 /* ee.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61072AD61B2EB25700554885 /* ee.swift */; };
 		61076A5D1B5F3E5A00A0CC4C /* MessageViewCtrl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61076A5C1B5F3E5A00A0CC4C /* MessageViewCtrl.swift */; };
@@ -154,6 +155,7 @@
 		610532291B8AC1690003C936 /* Plus Math-100.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Plus Math-100.png"; path = "icon/Plus Math-100.png"; sourceTree = SOURCE_ROOT; };
 		6105322D1B8ACC290003C936 /* shutterstock_196751174.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = shutterstock_196751174.jpg; path = image/shutterstock_196751174.jpg; sourceTree = SOURCE_ROOT; };
 		6105832B1B4BAB4500274EEA /* ExamScoreViewCtrl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExamScoreViewCtrl.swift; sourceTree = "<group>"; };
+		610641A51BBE421800BA83BF /* Checked-32.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Checked-32.png"; path = "icon/Checked-32.png"; sourceTree = SOURCE_ROOT; };
 		61072AD41B2E9E2A00554885 /* ss.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ss.swift; sourceTree = "<group>"; };
 		61072AD61B2EB25700554885 /* ee.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ee.swift; sourceTree = "<group>"; };
 		61076A5C1B5F3E5A00A0CC4C /* MessageViewCtrl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageViewCtrl.swift; sourceTree = "<group>"; };
@@ -325,6 +327,7 @@
 		61E308D21B2A893400BE36D0 /* icon */ = {
 			isa = PBXGroup;
 			children = (
+				610641A51BBE421800BA83BF /* Checked-32.png */,
 				6116606F1B9552AF0032458B /* Expensive 2-50.png */,
 				613E8B0E1B94375C0020228E /* Coins-50.png */,
 				613E8B0C1B9436930020228E /* Cash Register Filled-32.png */,
@@ -658,6 +661,7 @@
 				613C58831B2ACDDD00461072 /* Leave Filled-50.png in Resources */,
 				61E574761B85B56E00D2BD21 /* Starred Ticket-32.png in Resources */,
 				6100D0F71B86E62F005AEF65 /* iPad2-120.png in Resources */,
+				610641A61BBE421800BA83BF /* Checked-32.png in Resources */,
 				6114C8FF1B43A2A800C73E5E /* Diploma-32.png in Resources */,
 				6173AACF1B5791190049EB63 /* Find User Filled-32.png in Resources */,
 				613C58851B2AD92100461072 /* Star Filled-50.png in Resources */,

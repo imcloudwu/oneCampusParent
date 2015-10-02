@@ -28,6 +28,9 @@ class SemesterScoreViewCtrl: UIViewController,UITableViewDelegate,UITableViewDat
     
     var SummaryDic = [String:String]()
     
+    var CheckImg = UIImage(named: "Checked-32.png")
+    var NoneImg = UIImage()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -366,9 +369,11 @@ class SemesterScoreViewCtrl: UIViewController,UITableViewDelegate,UITableViewDat
             var cell = tableView.dequeueReusableCellWithIdentifier("SHSemesterScoreSummaryCell") as? SHSemesterScoreSummaryCell
             
             if let 實得 = SummaryDic["實得"]{
-                if let 已修 = SummaryDic["已修"]{
-                    cell?.Summary.text = "\(實得) / \(已修)"
-                }
+                cell?.實得.text = "\(實得)"
+            }
+            
+            if let 已修 = SummaryDic["已修"]{
+                cell?.已修.text = "\(已修)"
             }
             
             if let 必修 = SummaryDic["必修"]{
@@ -448,10 +453,15 @@ class SemesterScoreViewCtrl: UIViewController,UITableViewDelegate,UITableViewDat
         cell.Info.text = data.OtherInfo
         cell.Score.text = data.Value
         
+//        cell.Check.image = data.ColorAlarm ? NoneImg : CheckImg
+//        cell.Score.textColor = data.ColorAlarm ? UIColor.redColor() : UIColor.blackColor()
+        
         if data.ColorAlarm{
+            cell.Check.image = NoneImg
             cell.Score.textColor = UIColor.redColor()
         }
         else{
+            cell.Check.image = CheckImg
             cell.Score.textColor = UIColor.blackColor()
         }
         
@@ -465,7 +475,7 @@ class SemesterScoreViewCtrl: UIViewController,UITableViewDelegate,UITableViewDat
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat{
         
         if _displayData[indexPath.row].OtherInfo == "newSHSummaryItem"{
-            return 114
+            return 156
         }
         
         if _displayData[indexPath.row].OtherInfo == "newJHSummaryItem"{
@@ -507,7 +517,7 @@ struct SemesterSubjectItem : SemesterProtocol{
     
     func GetJhDisplayItem() -> DisplayItem{
         let underSixty = Score.doubleValue < 60 ? true : false
-        let subpc = "節權數 : \(Period) / \(Credit)"
+        let subpc = "節權數 \(Period) / \(Credit)"
         
         return DisplayItem(Title: Subject, Value: Score, OtherInfo: subpc, ColorAlarm: underSixty)
     }
@@ -516,7 +526,7 @@ struct SemesterSubjectItem : SemesterProtocol{
         
         var info = IsSchoolPlan ? "校訂" : "部訂"
         info += IsRequire ? "必修" : "選修"
-        info += "     學分 : \(Credit)"
+        info += " / \(Credit) 學分"
         
         return DisplayItem(Title: Subject, Value: Score, OtherInfo: info, ColorAlarm: !IsReach)
     }

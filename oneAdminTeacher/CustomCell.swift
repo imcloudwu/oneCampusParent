@@ -10,7 +10,8 @@ import UIKit
 
 class SHSemesterScoreSummaryCell : UITableViewCell{
     
-    @IBOutlet weak var Summary: UILabel!
+    @IBOutlet weak var 實得: UILabel!
+    @IBOutlet weak var 已修: UILabel!
     @IBOutlet weak var 必修: UILabel!
     @IBOutlet weak var 選修: UILabel!
     @IBOutlet weak var 校訂必修: UILabel!
@@ -85,9 +86,11 @@ class SemesterScoreItemCell : UITableViewCell{
     @IBOutlet weak var Subject: UILabel!
     @IBOutlet weak var Score: UILabel!
     @IBOutlet weak var Info: UILabel!
+    @IBOutlet weak var Check: UIImageView!
     
     override func awakeFromNib() {
-        //
+        Score.layer.cornerRadius = Score.frame.size.width / 2
+        Score.layer.masksToBounds = true
     }
 }
 

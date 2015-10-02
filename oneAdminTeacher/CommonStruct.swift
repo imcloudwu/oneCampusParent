@@ -105,7 +105,7 @@ class Toast {
         container.addSubview(Message)
         uiView.addSubview(container)
         
-        UIView.animateWithDuration(1.5, animations: { () -> Void in
+        UIView.animateWithDuration(1.0, animations: { () -> Void in
             self.Message.alpha = 0
         }) { (success) -> Void in
             self.container.removeFromSuperview()

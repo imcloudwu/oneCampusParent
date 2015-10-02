@@ -165,13 +165,13 @@ class MessageDetailViewCtrl: UIViewController{
                 newLabel.numberOfLines = 0
                 
                 if let tmp = find(Answers, index){
-                    newLabel.text = " ◉ " + Options[index].Title
+                    newLabel.text = " ☑ " + Options[index].Title
                 }
                 else{
-                    newLabel.text = " ◯ " + Options[index].Title
+                    newLabel.text = " ☐ " + Options[index].Title
                 }
                 
-                newLabel.backgroundColor = UIColor(red: 0.0/255, green: 150.0/255, blue: 136.0/255, alpha: 0.1)
+                //newLabel.backgroundColor = UIColor(red: 0.0/255, green: 150.0/255, blue: 136.0/255, alpha: 0.1)
                 newLabel.frame.size.width = ContentLabel.frame.size.width
                 newLabel.frame.size.height = 48.0
                 newLabel.frame.origin.x = ContentLabel.frame.origin.x
@@ -202,12 +202,12 @@ class MessageDetailViewCtrl: UIViewController{
         if CanMultiple{
             if let index = find(Answers, view.tag){
                 Answers.removeAtIndex(index)
-                view.text = " ◯ " +  Options[view.tag].Title
+                view.text = " ☐ " +  Options[view.tag].Title
                 //cell!.accessoryType = UITableViewCellAccessoryType.None
             }
             else{
                 Answers.append(view.tag)
-                view.text = " ◉ " + Options[view.tag].Title
+                view.text = " ☑ " + Options[view.tag].Title
                 //cell!.accessoryType = UITableViewCellAccessoryType.Checkmark
             }
         }
@@ -217,10 +217,10 @@ class MessageDetailViewCtrl: UIViewController{
             Answers.append(view.tag)
             
             for index in 0...Options.count - 1{
-                OptionLabels[index].text = " ◯ " + Options[index].Title
+                OptionLabels[index].text = " ☐ " + Options[index].Title
             }
             
-            view.text = " ◉ " + Options[view.tag].Title
+            view.text = " ☑ " + Options[view.tag].Title
         }
     }
     
