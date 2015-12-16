@@ -121,7 +121,7 @@ class MessageDetailViewCtrl: UIViewController{
         let paragraphStyle = NSMutableParagraphStyle()
         paragraphStyle.lineSpacing = 5
         
-        var attrString = NSMutableAttributedString(string: MessageData.Content)
+        let attrString = NSMutableAttributedString(string: MessageData.Content)
         attrString.addAttribute(NSParagraphStyleAttributeName, value:paragraphStyle, range:NSMakeRange(0, attrString.length))
         
         ContentLabel.attributedText = attrString
@@ -164,7 +164,7 @@ class MessageDetailViewCtrl: UIViewController{
                 newLabel.tag = index
                 newLabel.numberOfLines = 0
                 
-                if let tmp = find(Answers, index){
+                if let tmp = Answers.indexOf(index){
                     newLabel.text = " ☑ " + Options[index].Title
                 }
                 else{
@@ -200,7 +200,7 @@ class MessageDetailViewCtrl: UIViewController{
         //println("u pressed number : \(view.tag) option")
         
         if CanMultiple{
-            if let index = find(Answers, view.tag){
+            if let index = Answers.indexOf(view.tag){
                 Answers.removeAtIndex(index)
                 view.text = " ☐ " +  Options[view.tag].Title
                 //cell!.accessoryType = UITableViewCellAccessoryType.None
@@ -256,7 +256,7 @@ class MessageDetailViewCtrl: UIViewController{
             //self.navigationController?.popViewControllerAnimated(true)
         }
         else{
-            ShowErrorAlert(self, "錯誤", "必須選擇一個以上的選項")
+            ShowErrorAlert(self, title: "錯誤", msg: "必須選擇一個以上的選項")
         }
     }
     

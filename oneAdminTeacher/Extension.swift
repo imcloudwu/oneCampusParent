@@ -26,6 +26,7 @@ extension Connection{
         var rsp = self.sendRequest(targetService, bodyContent: bodyContent, &e)
         
         if e != nil{
+            RenewRefreshToken(Global.RefreshToken)
             self.connect(self.accessPoint, self.targetContract, SecurityToken.createOAuthToken(Global.AccessToken), &error)
             rsp = self.sendRequest(targetService, bodyContent: bodyContent, &e)
         }
@@ -40,7 +41,7 @@ extension Connection{
 extension String {
     
     var intValue: Int {
-        return self.toInt() ?? 0
+        return Int(self) ?? 0
     }
     
     var int16Value: Int16 {
@@ -59,10 +60,17 @@ extension String {
         return self.stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLQueryAllowedCharacterSet())
     }
     
+//    public var UrlDecoding: String?{
+//        
+//        let sEncode = self.stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLQueryAllowedCharacterSet())
+//        
+//        return sEncode?.stringByRemovingPercentEncoding
+//    }
+    
     func PadLeft(leng:Int,str:String) -> String{
         
         if (self as NSString).length < leng {
-            var l = leng - (self as NSString).length
+            let l = leng - (self as NSString).length
             
             var s = ""
             
@@ -86,11 +94,11 @@ extension Double {
     //    }
     
     func Round(precision : Int16) -> Double {
-        var x = NSDecimalNumber(string: "\(self)")
-        var y = NSDecimalNumber(int: 1)
+        let x = NSDecimalNumber(string: "\(self)")
+        let y = NSDecimalNumber(int: 1)
         
         //小數點第二位四捨五入進位
-        var behavior = NSDecimalNumberHandler(roundingMode: NSRoundingMode.RoundPlain, scale: precision, raiseOnExactness: true, raiseOnOverflow: true, raiseOnUnderflow: true, raiseOnDivideByZero: true)
+        let behavior = NSDecimalNumberHandler(roundingMode: NSRoundingMode.RoundPlain, scale: precision, raiseOnExactness: true, raiseOnOverflow: true, raiseOnUnderflow: true, raiseOnDivideByZero: true)
         
         return x.decimalNumberByDividingBy(y, withBehavior: behavior).doubleValue
     }

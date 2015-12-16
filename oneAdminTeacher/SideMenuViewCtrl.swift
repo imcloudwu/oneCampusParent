@@ -46,16 +46,16 @@ class SideMenuViewCtrl: UIViewController{
     @IBAction func Btn1(sender: AnyObject) {
         
 //        let nextView = self.storyboard?.instantiateViewControllerWithIdentifier("ClassQuery") as! UIViewController
-        let nextView = self.storyboard?.instantiateViewControllerWithIdentifier("ChildMainView") as! UIViewController
+        let nextView = self.storyboard?.instantiateViewControllerWithIdentifier("ChildMainView")
         
-        ChangeContentView(nextView)
+        ChangeContentView(nextView!)
     }
     
     @IBAction func Btn2(sender: AnyObject) {
         
-        let nextView = self.storyboard?.instantiateViewControllerWithIdentifier("MessageQuery") as! UIViewController
+        let nextView = self.storyboard?.instantiateViewControllerWithIdentifier("MessageQuery")
         
-        ChangeContentView(nextView)
+        ChangeContentView(nextView!)
     }
     
     @IBAction func Btn3(sender: AnyObject) {
@@ -75,9 +75,9 @@ class SideMenuViewCtrl: UIViewController{
     
     @IBAction func SuperBuy(sender: AnyObject) {
         
-        let nextView = self.storyboard?.instantiateViewControllerWithIdentifier("PurchaseMain") as! UIViewController
+        let nextView = self.storyboard?.instantiateViewControllerWithIdentifier("PurchaseMain")
         
-        ChangeContentView(nextView)
+        ChangeContentView(nextView!)
     }
     
     func Logout(){
@@ -90,8 +90,8 @@ class SideMenuViewCtrl: UIViewController{
         
         MessageCoreData.DeleteAll()
         
-        var storage : NSHTTPCookieStorage = NSHTTPCookieStorage.sharedHTTPCookieStorage()
-        for cookie in storage.cookies as! [NSHTTPCookie]
+        let storage : NSHTTPCookieStorage = NSHTTPCookieStorage.sharedHTTPCookieStorage()
+        for cookie in storage.cookies!
         {
             storage.deleteCookie(cookie)
         }

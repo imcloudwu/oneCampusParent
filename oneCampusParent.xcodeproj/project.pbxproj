@@ -42,6 +42,7 @@
 		6114C9011B43A2A800C73E5E /* Today-32.png in Resources */ = {isa = PBXBuildFile; fileRef = 6114C8FD1B43A2A800C73E5E /* Today-32.png */; };
 		611660701B9552AF0032458B /* Expensive 2-50.png in Resources */ = {isa = PBXBuildFile; fileRef = 6116606F1B9552AF0032458B /* Expensive 2-50.png */; };
 		61196D141B8EED0A0004092D /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 61196D131B8EED0A0004092D /* StoreKit.framework */; };
+		611D2C7D1BE88D430084A1F0 /* ExamScoreChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 611D2C7C1BE88D430084A1F0 /* ExamScoreChart.swift */; };
 		612123ED1B411525000AA07D /* User-100.png in Resources */ = {isa = PBXBuildFile; fileRef = 612123EC1B411525000AA07D /* User-100.png */; };
 		612123F11B412A3B000AA07D /* Phone-32.png in Resources */ = {isa = PBXBuildFile; fileRef = 612123F01B412A3B000AA07D /* Phone-32.png */; };
 		612123F31B412BBB000AA07D /* StudentInfoViewCtrl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 612123F21B412BBB000AA07D /* StudentInfoViewCtrl.swift */; };
@@ -178,6 +179,7 @@
 		6114C8FD1B43A2A800C73E5E /* Today-32.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Today-32.png"; path = "icon/Today-32.png"; sourceTree = SOURCE_ROOT; };
 		6116606F1B9552AF0032458B /* Expensive 2-50.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Expensive 2-50.png"; path = "icon/Expensive 2-50.png"; sourceTree = SOURCE_ROOT; };
 		61196D131B8EED0A0004092D /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
+		611D2C7C1BE88D430084A1F0 /* ExamScoreChart.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExamScoreChart.swift; sourceTree = "<group>"; };
 		612123EC1B411525000AA07D /* User-100.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "User-100.png"; sourceTree = "<group>"; };
 		612123F01B412A3B000AA07D /* Phone-32.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Phone-32.png"; sourceTree = "<group>"; };
 		612123F21B412BBB000AA07D /* StudentInfoViewCtrl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StudentInfoViewCtrl.swift; sourceTree = "<group>"; };
@@ -505,6 +507,7 @@
 				61F550911B2A768900E26A5D /* Images.xcassets */,
 				61F550931B2A768900E26A5D /* LaunchScreen.xib */,
 				61F550861B2A768900E26A5D /* Supporting Files */,
+				611D2C7C1BE88D430084A1F0 /* ExamScoreChart.swift */,
 			);
 			path = oneAdminTeacher;
 			sourceTree = "<group>";
@@ -594,6 +597,8 @@
 		61F5507B1B2A768900E26A5D /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				LastSwiftMigration = 0710;
+				LastSwiftUpdateCheck = 0710;
 				LastUpgradeCheck = 0630;
 				ORGANIZATIONNAME = ischool;
 				TargetAttributes = {
@@ -744,6 +749,7 @@
 				611485611B65EEA400B54BBB /* NotificationService.swift in Sources */,
 				61E574841B85C3E800D2BD21 /* ChartViewCtrl.swift in Sources */,
 				61E574801B85C36900D2BD21 /* OptionSettingViewCtrl.swift in Sources */,
+				611D2C7D1BE88D430084A1F0 /* ExamScoreChart.swift in Sources */,
 				61E574821B85C38200D2BD21 /* OptionEditViewCtrl.swift in Sources */,
 				615BB25E1B3BDFDC00864052 /* LoginViewCtrl.swift in Sources */,
 				61E5747C1B85C22000D2BD21 /* SelectTeacherPageViewCtrl.swift in Sources */,
@@ -896,6 +902,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -917,6 +924,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",

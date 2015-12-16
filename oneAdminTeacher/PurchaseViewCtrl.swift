@@ -51,13 +51,13 @@ class PurchaseViewCtrl: UIViewController {
     
     @IBAction func oneMonthBtnClick(sender: AnyObject) {
         if let myCoins = Keychain.load("myCoins")?.stringValue{
-            if let coinValue = myCoins.toInt() where coinValue >= 60 {
-                var balance = coinValue - 60
+            if let coinValue = Int(myCoins) where coinValue >= 60 {
+                let balance = coinValue - 60
                 
                 Keychain.save("myCoins", data: "\(balance)".dataValue)
                 MyCoinsBalance.text = "\(balance)"
                 
-                let date = NSCalendar.currentCalendar().dateByAddingUnit(NSCalendarUnit.CalendarUnitMonth, value: 1, toDate: Deadline, options: nil)!
+                let date = NSCalendar.currentCalendar().dateByAddingUnit(NSCalendarUnit.Month, value: 1, toDate: Deadline, options: [])!
                 MyServiceDeadline.text = DateFormater.stringFromDate(date)
                 Deadline = date
             }
@@ -66,13 +66,13 @@ class PurchaseViewCtrl: UIViewController {
     
     @IBAction func sixMonthBtnClick(sender: AnyObject) {
         if let myCoins = Keychain.load("myCoins")?.stringValue{
-            if let coinValue = myCoins.toInt() where coinValue >= 300 {
-                var balance = coinValue - 300
+            if let coinValue = Int(myCoins) where coinValue >= 300 {
+                let balance = coinValue - 300
                 
                 Keychain.save("myCoins", data: "\(balance)".dataValue)
                 MyCoinsBalance.text = "\(balance)"
                 
-                let date = NSCalendar.currentCalendar().dateByAddingUnit(NSCalendarUnit.CalendarUnitMonth, value: 6, toDate: Deadline, options: nil)!
+                let date = NSCalendar.currentCalendar().dateByAddingUnit(NSCalendarUnit.Month, value: 6, toDate: Deadline, options: [])!
                 MyServiceDeadline.text = DateFormater.stringFromDate(date)
                 Deadline = date
             }

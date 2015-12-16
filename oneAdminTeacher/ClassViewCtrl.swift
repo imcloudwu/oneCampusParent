@@ -39,7 +39,7 @@ class ClassViewCtrl: UIViewController,UITableViewDelegate,UITableViewDataSource{
         tableView.delegate = self
         tableView.dataSource = self
         self.navigationItem.title = "我的班級"
-        self.navigationController?.interactivePopGestureRecognizer.enabled = false
+        self.navigationController?.interactivePopGestureRecognizer?.enabled = false
         
         //progressTimer = ProgressTimer(progressBar: progress)
         
@@ -64,7 +64,7 @@ class ClassViewCtrl: UIViewController,UITableViewDelegate,UITableViewDataSource{
     }
     
     func ToggleSideMenu(){
-        var app = UIApplication.sharedApplication().delegate as! AppDelegate
+        let app = UIApplication.sharedApplication().delegate as! AppDelegate
         
         app.centerContainer?.toggleDrawerSide(MMDrawerSide.Left, animated: true, completion: nil)
     }
@@ -85,7 +85,7 @@ class ClassViewCtrl: UIViewController,UITableViewDelegate,UITableViewDataSource{
             DsnsResult[dsns.Name] = false
         }
         
-        var percent : Float = 1 / Float(DsnsResult.count)
+        let percent : Float = 1 / Float(DsnsResult.count)
         
         self.progress.progress = 0
         
@@ -95,8 +95,8 @@ class ClassViewCtrl: UIViewController,UITableViewDelegate,UITableViewDataSource{
             
             dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), {
                 
-                var con = Connection()
-                SetCommonConnect(dsns.AccessPoint, con)
+                let con = Connection()
+                SetCommonConnect(dsns.AccessPoint, con: con)
                 //con = CommonConnect(dsns.AccessPoint, con, self)
                 tmpList += self.GetData(con)
                 
@@ -173,20 +173,25 @@ class ClassViewCtrl: UIViewController,UITableViewDelegate,UITableViewDataSource{
         var err : DSFault!
         var nserr : NSError?
         
-        var rsp = con.sendRequest("main.GetMyTutorClasses", bodyContent: "", &err)
+        let rsp = con.sendRequest("main.GetMyTutorClasses", bodyContent: "", &err)
         
         if err != nil{
             //ShowErrorAlert(self,err,nil)
             return retVal
         }
         
-        var xml = AEXMLDocument(xmlData: rsp.dataValue, error: &nserr)
+        var xml: AEXMLDocument?
+        do {
+            xml = try AEXMLDocument(xmlData: rsp.dataValue)
+        } catch _ {
+            xml = nil
+        }
         
         if let classes = xml?.root["ClassList"]["Class"].all {
             for cls in classes{
                 let ClassID = cls["ClassID"].stringValue
                 let ClassName = cls["ClassName"].stringValue
-                let GradeYear = cls["GradeYear"].stringValue.toInt() ?? 0
+                let GradeYear = Int(cls["GradeYear"].stringValue) ?? 0
                 
                 retVal.append(ClassItem(DSNS: con.accessPoint, ID: ClassID, ClassName: ClassName, AccessPoint: con.accessPoint, GradeYear: GradeYear, Major: "導師"))
             }
@@ -213,7 +218,12 @@ class ClassViewCtrl: UIViewController,UITableViewDelegate,UITableViewDataSource{
             return retVal
         }
         
-        var xml = AEXMLDocument(xmlData: rsp.dataValue, error: &nserr)
+        var xml: AEXMLDocument?
+        do {
+            xml = try AEXMLDocument(xmlData: rsp.dataValue)
+        } catch _ {
+            xml = nil
+        }
         
         if let sy = xml?.root["Response"]["SchoolYear"].first?.stringValue{
             schoolYear = sy
@@ -231,13 +241,17 @@ class ClassViewCtrl: UIViewController,UITableViewDelegate,UITableViewDataSource{
             return retVal
         }
         
-        xml = AEXMLDocument(xmlData: rsp.dataValue, error: &nserr)
+        do {
+            xml = try AEXMLDocument(xmlData: rsp.dataValue)
+        } catch _ {
+            xml = nil
+        }
         
         if let classes = xml?.root["ClassList"]["Class"].all {
             for cls in classes{
                 let CourseID = cls["CourseID"].stringValue
                 let CourseName = cls["CourseName"].stringValue
-                let GradeYear = cls["GradeYear"].stringValue.toInt() ?? 0
+                let GradeYear = Int(cls["GradeYear"].stringValue) ?? 0
                 
                 retVal.append(ClassItem(DSNS: con.accessPoint, ID: CourseID, ClassName: CourseName, AccessPoint: con.accessPoint, GradeYear: GradeYear, Major: "授課"))
             }
@@ -293,7 +307,7 @@ class ClassViewCtrl: UIViewController,UITableViewDelegate,UITableViewDataSource{
         let data = _ClassList[indexPath.row]
         
         if data.ID == "header"{
-            var cell = tableView.dequeueReusableCellWithIdentifier("summaryItem") as? UITableViewCell
+            var cell = tableView.dequeueReusableCellWithIdentifier("summaryItem")
             
             if cell == nil{
                 cell = UITableViewCell(style: UITableViewCellStyle.Value1, reuseIdentifier: "summaryItem")
@@ -373,7 +387,7 @@ class ClassViewCtrl: UIViewController,UITableViewDelegate,UITableViewDataSource{
 //        }
         
         if sender.state == UIGestureRecognizerState.Began{
-            var cell = sender.view as! ClassCell
+            let cell = sender.view as! ClassCell
             
             let menu = UIAlertController(title: "要對 \(cell.ClassName.text!) 的家長們發送訊息嗎?", message: "", preferredStyle: UIAlertControllerStyle.Alert)
             
@@ -395,12 +409,17 @@ class ClassViewCtrl: UIViewController,UITableViewDelegate,UITableViewDataSource{
         var rsp = con.sendRequest("main.GetParent", bodyContent: "<Request><ClassID>\(cell.classItem.ID)</ClassID></Request>", &err)
         
         if err != nil{
-            ShowErrorAlert(self, "錯誤", err.message)
+            ShowErrorAlert(self, title: "錯誤", msg: err.message)
         }
         else{
             var nserr : NSError?
             
-            var xml = AEXMLDocument(xmlData: rsp.dataValue, error: &nserr)
+            var xml: AEXMLDocument?
+            do {
+                xml = try AEXMLDocument(xmlData: rsp.dataValue)
+            } catch _ {
+                xml = nil
+            }
             
             var parentAccounts = [TeacherAccount]()
             

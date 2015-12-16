@@ -69,11 +69,11 @@ class KeyinViewCtrl: UIViewController,UITableViewDelegate,UITableViewDataSource,
     
     func GetServerName(){
         
-        let count = self.server.text.lengthOfBytesUsingEncoding(NSUTF8StringEncoding)
+        let count = self.server.text!.lengthOfBytesUsingEncoding(NSUTF8StringEncoding)
         
         if _lastCount != count && !_isBusy{
             _lastCount = count
-            newSearch(self.server.text)
+            newSearch(self.server.text!)
         }
     }
     
@@ -113,7 +113,7 @@ class KeyinViewCtrl: UIViewController,UITableViewDelegate,UITableViewDataSource,
         return true
     }
     
-    override func touchesBegan(touches: Set<NSObject>, withEvent event: UIEvent) {
+    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
         self.view.endEditing(true)
         if autoView.hidden == false{
             autoView.hidden = true
@@ -125,7 +125,7 @@ class KeyinViewCtrl: UIViewController,UITableViewDelegate,UITableViewDataSource,
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell{
-        var cell = UITableViewCell(style: UITableViewCellStyle.Default, reuseIdentifier: "auto")
+        let cell = UITableViewCell(style: UITableViewCellStyle.Default, reuseIdentifier: "auto")
         cell.textLabel?.text = _display[indexPath.row]
         return cell
     }
@@ -152,7 +152,12 @@ class KeyinViewCtrl: UIViewController,UITableViewDelegate,UITableViewDataSource,
                     
                     var nserr : NSError?
                     
-                    let xml = AEXMLDocument(xmlData: response.dataValue, error: &nserr)
+                    let xml: AEXMLDocument?
+                    do {
+                        xml = try AEXMLDocument(xmlData: response.dataValue)
+                    } catch _ {
+                        xml = nil
+                    }
                     
                     if let schools = xml?.root["Response"]["School"].all{
                         
@@ -165,7 +170,7 @@ class KeyinViewCtrl: UIViewController,UITableViewDelegate,UITableViewDataSource,
                     }
                     
                     self._DSNSDic = tmpDic
-                    self._display = tmpDic.keys.array
+                    self._display = Array(tmpDic.keys)
                     
                     if self._display.count > 0{
                         self.autoView.reloadData()
@@ -191,25 +196,25 @@ class KeyinViewCtrl: UIViewController,UITableViewDelegate,UITableViewDataSource,
         
         var serverName = ""
         
-        if let dsns = _DSNSDic[server.text]{
+        if let dsns = _DSNSDic[server.text!]{
             serverName = dsns
         }
         else{
-            serverName = server.text
+            serverName = server.text!
         }
         
         if serverName.isEmpty{
-            ShowErrorAlert(self, "請輸入學校或主機名稱", "")
+            ShowErrorAlert(self, title: "請輸入學校或主機名稱", msg: "")
             return
         }
         
-        if code.text.isEmpty{
-            if idNumber.text.isEmpty && studentNumber.text.isEmpty{
-                ShowErrorAlert(self, "家長代碼或學生資料必須擇一填寫", "")
+        if code.text!.isEmpty{
+            if idNumber.text!.isEmpty && studentNumber.text!.isEmpty{
+                ShowErrorAlert(self, title: "家長代碼或學生資料必須擇一填寫", msg: "")
                 return
             }
-            else if idNumber.text.isEmpty || studentNumber.text.isEmpty{
-                ShowErrorAlert(self, "學生資料必須填寫完整", "")
+            else if idNumber.text!.isEmpty || studentNumber.text!.isEmpty{
+                ShowErrorAlert(self, title: "學生資料必須填寫完整", msg: "")
                 return
             }
         }
@@ -221,21 +226,21 @@ class KeyinViewCtrl: UIViewController,UITableViewDelegate,UITableViewDataSource,
         
         self._DsnsItem = DsnsItem(name: "", accessPoint: server)
         
-        if !contains(Global.DsnsList,self._DsnsItem){
+        if !Global.DsnsList.contains(self._DsnsItem){
             
             var err : DSFault!
             var con = Connection()
             con.connect("https://auth.ischool.com.tw:8443/dsa/greening", "user", SecurityToken.createOAuthToken(Global.AccessToken), &err)
             
             if err != nil{
-                ShowErrorAlert(self, "過程發生錯誤", err.message)
+                ShowErrorAlert(self, title: "過程發生錯誤", msg: err.message)
                 return
             }
             
             var rsp = con.sendRequest("AddApplicationRef", bodyContent: "<Request><Applications><Application><AccessPoint>\(server)</AccessPoint><Type>dynpkg</Type></Application></Applications></Request>", &err)
             
             if err != nil{
-                ShowErrorAlert(self, "過程發生錯誤", err.message)
+                ShowErrorAlert(self, title: "過程發生錯誤", msg: err.message)
                 return
             }
             
@@ -252,8 +257,8 @@ class KeyinViewCtrl: UIViewController,UITableViewDelegate,UITableViewDataSource,
         
         let target = "https://auth.ischool.com.tw/oauth/authorize.php?client_id=\(Global.clientID)&response_type=token&redirect_uri=http://_blank&scope=User.Mail,User.BasicInfo,1Campus.Notification.Read,1Campus.Notification.Send,*:auth.guest,*:1campus.mobile.parent&access_token=\(Global.AccessToken)"
         
-        var urlobj = NSURL(string: target)
-        var request = NSURLRequest(URL: urlobj!)
+        let urlobj = NSURL(string: target)
+        let request = NSURLRequest(URL: urlobj!)
         
         self.webView.loadRequest(request)
         self.webView.hidden = false
@@ -261,26 +266,31 @@ class KeyinViewCtrl: UIViewController,UITableViewDelegate,UITableViewDataSource,
     
     func JoinWithCode(code:String){
         
-        let relationShip = self.relationship.text.isEmpty ? "iOS Parent" : self.relationship.text
+        let relationShip = self.relationship.text!.isEmpty ? "iOS Parent" : self.relationship.text
         
         var err : DSFault!
         var con = Connection()
         con.connect(_DsnsItem.AccessPoint, "auth.guest", SecurityToken.createOAuthToken(Global.AccessToken), &err)
         
         if err != nil{
-            ShowErrorAlert(self, "過程發生錯誤", err.message)
+            ShowErrorAlert(self, title: "過程發生錯誤", msg: err.message)
             return
         }
         
         var rsp = con.SendRequest("Join.AsParent", bodyContent: "<Request><ParentCode>\(code)</ParentCode><Relationship>\(relationShip)</Relationship></Request>", &err)
         
         if err != nil{
-            ShowErrorAlert(self, "過程發生錯誤", err.message)
+            ShowErrorAlert(self, title: "過程發生錯誤", msg: err.message)
             return
         }
         
         var nserr : NSError?
-        let xml = AEXMLDocument(xmlData: rsp.dataValue, error: &nserr)
+        let xml: AEXMLDocument?
+        do {
+            xml = try AEXMLDocument(xmlData: rsp.dataValue)
+        } catch _ {
+            xml = nil
+        }
         
         if let success = xml?.root["Body"]["Success"]{
             
@@ -297,33 +307,38 @@ class KeyinViewCtrl: UIViewController,UITableViewDelegate,UITableViewDataSource,
             
         }
         else{
-            ShowErrorAlert(self, "加入失敗", "發生不明的錯誤,請回報給開發人員")
+            ShowErrorAlert(self, title: "加入失敗", msg: "發生不明的錯誤,請回報給開發人員")
         }
         
     }
     
     func JoinWithBasicInfo(idNumber:String,studentNumber:String){
         
-        let relationShip = self.relationship.text.isEmpty ? "Basic iOS Parent" : self.relationship.text
+        let relationShip = self.relationship.text!.isEmpty ? "Basic iOS Parent" : self.relationship.text
         
         var err : DSFault!
         var con = Connection()
         con.connect(_DsnsItem.AccessPoint, "1campus.mobile.guest", SecurityToken.createOAuthToken(Global.AccessToken), &err)
         
         if err != nil{
-            ShowErrorAlert(self, "過程發生錯誤", err.message)
+            ShowErrorAlert(self, title: "過程發生錯誤", msg: err.message)
             return
         }
         
         var rsp = con.sendRequest("_.ConfirmMyChild", bodyContent: "<Request><StudentIdNumber>\(idNumber)</StudentIdNumber><StudentNumber>\(studentNumber)</StudentNumber></Request>", &err)
         
         if rsp == nil || rsp.isEmpty{
-            ShowErrorAlert(self, "該校查詢不到此學生資料,無法加入", "")
+            ShowErrorAlert(self, title: "該校查詢不到此學生資料,無法加入", msg: "")
             return
         }
         
         var nserr:NSError?
-        var xml = AEXMLDocument(xmlData: rsp.dataValue, error: &nserr)
+        var xml: AEXMLDocument?
+        do {
+            xml = try AEXMLDocument(xmlData: rsp.dataValue)
+        } catch _ {
+            xml = nil
+        }
         
         var Id = ""
         var Name = ""
@@ -346,7 +361,7 @@ class KeyinViewCtrl: UIViewController,UITableViewDelegate,UITableViewDataSource,
                 var rsp = con.sendRequest("_.JoinAsParent", bodyContent: "<Request><StudentId>\(Id)</StudentId><Relationship>\(self.relationship.text)</Relationship></Request>", &err)
                 
                 if err != nil{
-                    ShowErrorAlert(self, "過程發生錯誤", err.message)
+                    ShowErrorAlert(self, title: "過程發生錯誤", msg: err.message)
                     return
                 }
                 
@@ -358,31 +373,31 @@ class KeyinViewCtrl: UIViewController,UITableViewDelegate,UITableViewDataSource,
             self.presentViewController(confirm, animated: true, completion: nil)
         }
         else{
-            ShowErrorAlert(self, "該校查詢不到此學生資料,無法加入", "")
+            ShowErrorAlert(self, title: "該校查詢不到此學生資料,無法加入", msg: "")
             return
         }
     }
     
     func JoinAsParent(){
         
-        if !code.text.isEmpty{
-            JoinWithCode(code.text)
+        if !code.text!.isEmpty{
+            JoinWithCode(code.text!)
         }
         else{
-            JoinWithBasicInfo(idNumber.text,studentNumber: studentNumber.text)
+            JoinWithBasicInfo(idNumber.text!,studentNumber: studentNumber.text!)
         }
     }
     
-    func webView(webView: UIWebView, didFailLoadWithError error: NSError){
+    func webView(webView: UIWebView, didFailLoadWithError error: NSError?){
         
         //網路異常
-        if error.code == -1009 || error.code == -1003{
+        if error!.code == -1009 || error!.code == -1003{
             
-            if UpdateTokenFromError(error){
+            if UpdateTokenFromError(error!){
                 JoinAsParent()
             }
             else{
-                ShowErrorAlert(self, "連線過程發生錯誤", "若此情況重複發生,建議重登後再嘗試")
+                ShowErrorAlert(self, title: "連線過程發生錯誤", msg: "若此情況重複發生,建議重登後再嘗試")
             }
         }
     }
@@ -392,7 +407,7 @@ class KeyinViewCtrl: UIViewController,UITableViewDelegate,UITableViewDataSource,
         var accessToken : String!
         var refreshToken : String!
         
-        if let url = error.userInfo?["NSErrorFailingURLStringKey"] as? String{
+        if let url = error.userInfo["NSErrorFailingURLStringKey"] as? String{
             
             let stringArray = url.componentsSeparatedByString("&")
             
@@ -421,7 +436,7 @@ class KeyinViewCtrl: UIViewController,UITableViewDelegate,UITableViewDataSource,
     
     func SetExtraTextFiled(){
         
-        if code.text.isEmpty{
+        if code.text!.isEmpty{
             idNumber.enabled = true
             studentNumber.enabled = true
         }

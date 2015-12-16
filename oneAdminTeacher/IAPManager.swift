@@ -37,7 +37,7 @@ class IAPManager: NSObject, SKProductsRequestDelegate, SKPaymentTransactionObser
     func AddCoins(charge:Int){
         
         if let myCoins = Keychain.load("myCoins")?.stringValue{
-            if let coinValue = myCoins.toInt(){
+            if let coinValue = Int(myCoins){
                 let newValue = coinValue + charge
                 
                 Keychain.save("myCoins", data: "\(newValue)".dataValue)
@@ -61,7 +61,7 @@ class IAPManager: NSObject, SKProductsRequestDelegate, SKPaymentTransactionObser
     
     func FethingProducts(callback:() -> ()){
         if SKPaymentQueue.canMakePayments(){
-            let productsRequest = SKProductsRequest(productIdentifiers: self.productIds as Set<NSObject>)
+            let productsRequest = SKProductsRequest(productIdentifiers: self.productIds)
             productsRequest.delegate = self
             productsRequest.start()
             
@@ -71,7 +71,7 @@ class IAPManager: NSObject, SKProductsRequestDelegate, SKPaymentTransactionObser
     
     func productsRequest (request: SKProductsRequest, didReceiveResponse response: SKProductsResponse) {
         
-        var count : Int = response.products.count
+        let count : Int = response.products.count
         
         if (count>0) {
             
@@ -112,7 +112,7 @@ class IAPManager: NSObject, SKProductsRequestDelegate, SKPaymentTransactionObser
         _PurchasedProductsCallBack = callback
     }
     
-    func paymentQueue(queue: SKPaymentQueue!, updatedTransactions transactions: [AnyObject]!){
+    func paymentQueue(queue: SKPaymentQueue, updatedTransactions transactions: [SKPaymentTransaction]){
         
         if let trans = transactions as? [SKPaymentTransaction]{
             
@@ -122,7 +122,7 @@ class IAPManager: NSObject, SKProductsRequestDelegate, SKPaymentTransactionObser
                     
                 case .Purchased:
                     
-                    println("Product Purchased")
+                    print("Product Purchased")
                     SKPaymentQueue.defaultQueue().finishTransaction(tran)
                     break
                     
@@ -133,16 +133,16 @@ class IAPManager: NSObject, SKProductsRequestDelegate, SKPaymentTransactionObser
                     
                 case .Failed:
                     
-                    println("Purchased Failed")
+                    print("Purchased Failed")
                     SKPaymentQueue.defaultQueue().finishTransaction(tran)
                     break
                     
                 case .Purchasing:
-                    println("Product Purchasing")
+                    print("Product Purchasing")
                     break
                     
                 case .Deferred:
-                    println("Product Deferred")
+                    print("Product Deferred")
                     break
                     
                 default:
@@ -153,15 +153,15 @@ class IAPManager: NSObject, SKProductsRequestDelegate, SKPaymentTransactionObser
         }
     }
     
-    func paymentQueue(queue: SKPaymentQueue!, removedTransactions transactions: [AnyObject]!){
+    func paymentQueue(queue: SKPaymentQueue, removedTransactions transactions: [SKPaymentTransaction]){
         
         if let trans = transactions as? [SKPaymentTransaction]{
             
             for tran in trans{
                 
                 if tran.transactionState == .Purchased{
-                    println("即將完成購物品的移除")
-                    println("\(tran.payment.productIdentifier)")
+                    print("即將完成購物品的移除")
+                    print("\(tran.payment.productIdentifier)")
                     
                     switch tran.payment.productIdentifier{
                         
@@ -191,16 +191,16 @@ class IAPManager: NSObject, SKProductsRequestDelegate, SKPaymentTransactionObser
         ExcutePurchasedProductsCallBack()
     }
     
-    func paymentQueue(queue: SKPaymentQueue!, restoreCompletedTransactionsFailedWithError error: NSError!){
-        println("Restoring failed cause \(error)")
+    func paymentQueue(queue: SKPaymentQueue, restoreCompletedTransactionsFailedWithError error: NSError){
+        print("Restoring failed cause \(error)")
     }
     
-    func paymentQueueRestoreCompletedTransactionsFinished(queue: SKPaymentQueue!){
+    func paymentQueueRestoreCompletedTransactionsFinished(queue: SKPaymentQueue){
         
-        for transaction:SKPaymentTransaction in queue.transactions as! [SKPaymentTransaction] {
+        for transaction:SKPaymentTransaction in queue.transactions {
         }
         
-        var alert = UIAlertView(title: "Thank You", message: "Your purchase(s) were restored.", delegate: nil, cancelButtonTitle: "OK")
+        let alert = UIAlertView(title: "Thank You", message: "Your purchase(s) were restored.", delegate: nil, cancelButtonTitle: "OK")
         alert.show()
     }
     
