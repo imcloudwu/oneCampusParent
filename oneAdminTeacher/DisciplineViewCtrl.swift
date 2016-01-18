@@ -199,17 +199,19 @@ class DisciplineViewCtrl: UIViewController,UITableViewDelegate,UITableViewDataSo
         
         var besSize = segment.sizeThatFits(CGSize.zero)
         
-        if besSize.width < Global.ScreenSize.width {
-            besSize.width = Global.ScreenSize.width
+        let screenwidth = scrollView.frame.width
+        
+        if besSize.width < screenwidth - 16 {
+            besSize.width = screenwidth - 16
         }
         
-        if besSize.width > Global.ScreenSize.width{
-            scrollView.contentSize = CGSizeMake(besSize.width + 16 , 28)
-            segment.frame.size.width = besSize.width
+        segment.frame.size.width = besSize.width
+        
+        if besSize.width > screenwidth{
+            scrollView.contentSize = CGSizeMake(besSize.width + 16 , 0)
         }
         else{
-            scrollView.contentSize = CGSizeMake(besSize.width - 8 , 28)
-            segment.frame.size.width = besSize.width - 16
+            scrollView.contentSize = CGSizeMake(besSize.width , 0)
         }
         
         scrollView.contentOffset = CGPointMake(0 - self.scrollView.contentInset.left, 0)

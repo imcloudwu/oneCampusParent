@@ -249,9 +249,9 @@ class MessageDetailViewCtrl: UIViewController{
             
             NotificationService.ExecuteNewMessageDelegate()
             
-            Global.MyToast.ToastMessage(self.view, callback: { () -> () in
+             Global.MyToast.ToastMessage(self.view, msg: "投票完成...", callback: { () -> () in
                 self.navigationController?.popViewControllerAnimated(true)
-            })
+             })
             
             //self.navigationController?.popViewControllerAnimated(true)
         }

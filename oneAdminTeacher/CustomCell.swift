@@ -8,6 +8,22 @@
 
 import UIKit
 
+class AlbumHeader : UICollectionReusableView {
+    
+    @IBOutlet weak var title: UILabel!
+    @IBOutlet weak var scrollView: UIScrollView!
+    @IBOutlet weak var contentView: UIView!
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        
+//        contentView.layer.shadowColor = UIColor.darkGrayColor().CGColor
+//        contentView.layer.shadowOpacity = 0.5
+//        contentView.layer.shadowOffset = CGSizeMake(3.0, 2.0)
+//        contentView.layer.shadowRadius = 3
+    }
+}
+
 class SHSemesterScoreSummaryCell : UITableViewCell{
     
     @IBOutlet weak var 實得: UILabel!

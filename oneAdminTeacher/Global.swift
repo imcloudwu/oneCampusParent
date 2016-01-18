@@ -490,7 +490,7 @@ func IsValidated() -> Bool{
     format.timeZone = NSTimeZone(name: "UTC")
     
     let today = NSDate()
-    let limitDate = format.dateFromString("2016-01-01")
+    let limitDate = format.dateFromString("2016-02-01")
     
     if today > limitDate{
         return false

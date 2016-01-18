@@ -83,18 +83,41 @@ class Toast {
     var container: UIView = UIView()
     var Message: UILabel = UILabel()
     
+    func ShowMessage(uiView: UIView,msg:String) {
+        container.frame = uiView.frame
+        container.center = uiView.center
+        container.backgroundColor = UIColorFromHex(0xffffff, alpha: 0.3)
+        
+        Message.text = msg
+        Message.alpha = 1
+        Message.textColor = UIColor.whiteColor()
+        Message.textAlignment = NSTextAlignment.Center
+        Message.frame = CGRectMake(0, 0, 200, 50)
+        Message.center = container.center
+        Message.backgroundColor = UIColorFromHex(0x444444, alpha: 0.7)
+        Message.layer.masksToBounds = true
+        Message.layer.cornerRadius = 10
+        
+        container.addSubview(Message)
+        uiView.addSubview(container)
+    }
+    
+    func HideMessage(uiView: UIView) {
+        container.removeFromSuperview()
+    }
+    
     /*
     Show customized activity indicator,
     actually add activity indicator to passing view
     
     @param uiView - add activity indicator to this view
     */
-    func ToastMessage(uiView: UIView,callback:(() -> ())) {
+    func ToastMessage(uiView: UIView,msg:String,callback:(() -> ())?) {
         container.frame = uiView.frame
         container.center = uiView.center
         container.backgroundColor = UIColorFromHex(0xffffff, alpha: 0.3)
         
-        Message.text = "傳送完成..."
+        Message.text = msg
         Message.alpha = 1
         Message.textColor = UIColor.whiteColor()
         Message.textAlignment = NSTextAlignment.Center
@@ -107,12 +130,14 @@ class Toast {
         container.addSubview(Message)
         uiView.addSubview(container)
         
-        UIView.animateWithDuration(1.0, animations: { () -> Void in
+        UIView.animateWithDuration(1.5, animations: { () -> Void in
             self.Message.alpha = 0
-        }) { (success) -> Void in
-            self.container.removeFromSuperview()
-            
-            callback()
+            }) { (success) -> Void in
+                self.container.removeFromSuperview()
+                
+                if let call = callback{
+                    call()
+                }
         }
     }
     
@@ -130,4 +155,5 @@ class Toast {
     }
     
 }
+
 

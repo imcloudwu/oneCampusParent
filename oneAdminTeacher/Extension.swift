@@ -25,13 +25,17 @@ extension Connection{
         
         var rsp = self.sendRequest(targetService, bodyContent: bodyContent, &e)
         
-        if e != nil{
-            RenewRefreshToken(Global.RefreshToken)
-            self.connect(self.accessPoint, self.targetContract, SecurityToken.createOAuthToken(Global.AccessToken), &error)
-            rsp = self.sendRequest(targetService, bodyContent: bodyContent, &e)
+        dispatch_sync(Global.LockQueue) {
+            
+            if e != nil{
+                RenewRefreshToken(Global.RefreshToken)
+                self.connect(self.accessPoint, self.targetContract, SecurityToken.createOAuthToken(Global.AccessToken), &error)
+                rsp = self.sendRequest(targetService, bodyContent: bodyContent, &e)
+            }
+            
+            error = e
+            
         }
-        
-        error = e
         
         return rsp == nil ? "" : rsp
     }
