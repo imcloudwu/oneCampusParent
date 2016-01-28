@@ -102,6 +102,7 @@ class ChildListViewCtrl: UIViewController,UITableViewDelegate,UITableViewDataSou
         
         if Global.DsnsList.count == 0{
             progressTimer.StopProgress()
+            self.Notice()
         }
         
         for dsns in Global.DsnsList{
@@ -129,6 +130,8 @@ class ChildListViewCtrl: UIViewController,UITableViewDelegate,UITableViewDataSou
                     }
                     
                     self.tableView.reloadData()
+                    
+                    animatedWithTableView(self.tableView)
                 })
             })
         }

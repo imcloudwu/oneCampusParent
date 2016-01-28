@@ -22,7 +22,7 @@ public class Global{
     static var AccessToken : String!
     static var RefreshToken : String!
     static var DsnsList = [DsnsItem]()
-    static var CurrentDsns : DsnsItem!
+    //static var CurrentDsns : DsnsItem!
     static var Students = [Student]()
     static var CurrentStudent : Student!
     static var CountProgressTime = [ProgressTimer]()
@@ -49,6 +49,7 @@ public class Global{
         ClassList = nil
         MyChildList = nil
         MySchoolList = [DsnsItem]()
+        DsnsList = [DsnsItem]()
         MyTeacherList = [TeacherAccount]()
         SchoolConnector = [String:Connection]()
         
@@ -485,16 +486,16 @@ func GetCoinsBalance() -> String{
 
 func IsValidated() -> Bool{
     
-    let format:NSDateFormatter = NSDateFormatter()
-    format.dateFormat = "yyyy-MM-dd"
-    format.timeZone = NSTimeZone(name: "UTC")
-    
-    let today = NSDate()
-    let limitDate = format.dateFromString("2016-02-01")
-    
-    if today > limitDate{
-        return false
-    }
+//    let format:NSDateFormatter = NSDateFormatter()
+//    format.dateFormat = "yyyy-MM-dd"
+//    format.timeZone = NSTimeZone(name: "UTC")
+//    
+//    let today = NSDate()
+//    let limitDate = format.dateFromString("2016-02-01")
+//    
+//    if today > limitDate{
+//        return false
+//    }
     
     return true
     
@@ -533,6 +534,27 @@ func IsValidated() -> Bool{
 //    }
 //    
 //    return false
+}
+
+func animatedWithTableView(tableView:UITableView){
+    
+    let cells = tableView.visibleCells
+    let tableHeight: CGFloat = tableView.bounds.size.height
+    
+    for cell in cells{
+        cell.transform = CGAffineTransformMakeTranslation(0, tableHeight)
+    }
+    
+    var index = 0
+    
+    for cell in cells {
+        
+        UIView.animateWithDuration(1.0, delay: 0.05 * Double(index), usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: [], animations: {
+            cell.transform = CGAffineTransformMakeTranslation(0, 0);
+            }, completion: nil)
+        
+        index += 1
+    }
 }
 
 

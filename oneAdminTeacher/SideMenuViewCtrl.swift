@@ -80,6 +80,15 @@ class SideMenuViewCtrl: UIViewController{
         ChangeContentView(nextView!)
     }
     
+    @IBAction func SendMailToSupportTeam(sender: AnyObject) {
+        
+        let url = "mailto:support@ischool.com.tw?subject=1Campus家長App建議(iOS)"
+        
+        if let encodeUrl = NSURL(string: url.UrlEncoding!){
+            UIApplication.sharedApplication().openURL(encodeUrl)
+        }
+    }
+    
     func Logout(){
         
         Global.Reset()

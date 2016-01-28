@@ -70,9 +70,9 @@ class StudentDetailViewCtrl: UIViewController {
             SegmentHeight.constant = 0
         }
         
-        //Segment.removeSegmentAtIndex(0, animated: true)
+        Segment.removeSegmentAtIndex(0, animated: true)
         
-        //Segment.selectedSegmentIndex = 0
+        Segment.selectedSegmentIndex = 0
         
         // Do any additional setup after loading the view, typically from a nib.
     }
@@ -115,23 +115,23 @@ class StudentDetailViewCtrl: UIViewController {
         
         lastSegmentIndex = Segment.selectedSegmentIndex
         
+//        if Segment.selectedSegmentIndex == 0{
+//            let contentView = self.storyboard?.instantiateViewControllerWithIdentifier("StudentAlbumViewCtrl") as! StudentAlbumViewCtrl
+//            ChangeContainerViewContent(contentView)
+//        }
         if Segment.selectedSegmentIndex == 0{
-            let contentView = self.storyboard?.instantiateViewControllerWithIdentifier("StudentAlbumViewCtrl") as! StudentAlbumViewCtrl
-            ChangeContainerViewContent(contentView)
-        }
-        else if Segment.selectedSegmentIndex == 1{
             let contentView = self.storyboard?.instantiateViewControllerWithIdentifier("attendanceViewCtrl") as! AttendanceViewCtrl
             ChangeContainerViewContent(contentView)
         }
-        else if Segment.selectedSegmentIndex == 2{
+        else if Segment.selectedSegmentIndex == 1{
             let contentView = self.storyboard?.instantiateViewControllerWithIdentifier("disciplineViewCtrl") as! DisciplineViewCtrl
             ChangeContainerViewContent(contentView)
         }
-        else if Segment.selectedSegmentIndex == 3{
+        else if Segment.selectedSegmentIndex == 2{
             let contentView = self.storyboard?.instantiateViewControllerWithIdentifier("examScoreViewCtrl") as! ExamScoreViewCtrl
             ChangeContainerViewContent(contentView)
         }
-        else if Segment.selectedSegmentIndex == 4{
+        else if Segment.selectedSegmentIndex == 3{
             let contentView = self.storyboard?.instantiateViewControllerWithIdentifier("semesterScoreViewCtrl") as! SemesterScoreViewCtrl
             ChangeContainerViewContent(contentView)
         }
@@ -174,9 +174,10 @@ class StudentDetailViewCtrl: UIViewController {
 //    }
     
     func ChangeHeight(){
-        SubTitleView.hidden = !SubTitleView.hidden
-        Height.constant = SubTitleView.hidden ? 0 : 133
-        ExpandBtn.image = SubTitleView.hidden ? downArrow : upArrow
+        
+        self.SubTitleView.hidden = !self.SubTitleView.hidden
+        self.Height.constant = self.SubTitleView.hidden ? 0 : 133
+        self.ExpandBtn.image = self.SubTitleView.hidden ? downArrow : upArrow
     }
     
     func ChangeContainerViewContent(vc : UIViewController){

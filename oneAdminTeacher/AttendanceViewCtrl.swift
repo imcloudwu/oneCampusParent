@@ -47,6 +47,8 @@ class AttendanceViewCtrl: UIViewController,UITableViewDelegate,UITableViewDataSo
         })
         
         self.tableView.reloadData()
+        
+        animatedWithTableView(self.tableView)
     }
     
     override func viewDidLoad() {

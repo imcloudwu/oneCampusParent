@@ -34,6 +34,8 @@
 		610EA13F1B8EC0A700EB54B0 /* PurchaseViewCtrl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 610EA13E1B8EC0A700EB54B0 /* PurchaseViewCtrl.swift */; };
 		6112A2301B46355300DA4E77 /* SemesterScoreViewCtrl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6112A22F1B46355300DA4E77 /* SemesterScoreViewCtrl.swift */; };
 		6112A2321B4637F900DA4E77 /* Elective Filled-50.png in Resources */ = {isa = PBXBuildFile; fileRef = 6112A2311B4637F900DA4E77 /* Elective Filled-50.png */; };
+		61144D671C576A60008A90CA /* Support Filled-32.png in Resources */ = {isa = PBXBuildFile; fileRef = 61144D661C576A60008A90CA /* Support Filled-32.png */; };
+		61144D691C577A8E008A90CA /* SelectSchoolViewCtrl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61144D681C577A8E008A90CA /* SelectSchoolViewCtrl.swift */; };
 		6114855F1B65EB6000B54BBB /* ic_ischool.png in Resources */ = {isa = PBXBuildFile; fileRef = 6114855E1B65EB6000B54BBB /* ic_ischool.png */; };
 		611485611B65EEA400B54BBB /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 611485601B65EEA400B54BBB /* NotificationService.swift */; };
 		6114C8FE1B43A2A800C73E5E /* Courses-32.png in Resources */ = {isa = PBXBuildFile; fileRef = 6114C8FA1B43A2A800C73E5E /* Courses-32.png */; };
@@ -176,6 +178,8 @@
 		610EA13E1B8EC0A700EB54B0 /* PurchaseViewCtrl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PurchaseViewCtrl.swift; sourceTree = "<group>"; };
 		6112A22F1B46355300DA4E77 /* SemesterScoreViewCtrl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SemesterScoreViewCtrl.swift; sourceTree = "<group>"; };
 		6112A2311B4637F900DA4E77 /* Elective Filled-50.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Elective Filled-50.png"; path = "icon/Elective Filled-50.png"; sourceTree = SOURCE_ROOT; };
+		61144D661C576A60008A90CA /* Support Filled-32.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Support Filled-32.png"; sourceTree = "<group>"; };
+		61144D681C577A8E008A90CA /* SelectSchoolViewCtrl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectSchoolViewCtrl.swift; sourceTree = "<group>"; };
 		6114855E1B65EB6000B54BBB /* ic_ischool.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ic_ischool.png; path = icon/ic_ischool.png; sourceTree = SOURCE_ROOT; };
 		611485601B65EEA400B54BBB /* NotificationService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationService.swift; sourceTree = "<group>"; };
 		6114C8FA1B43A2A800C73E5E /* Courses-32.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Courses-32.png"; path = "icon/Courses-32.png"; sourceTree = SOURCE_ROOT; };
@@ -339,6 +343,7 @@
 		61E308D21B2A893400BE36D0 /* icon */ = {
 			isa = PBXGroup;
 			children = (
+				61144D661C576A60008A90CA /* Support Filled-32.png */,
 				612738B41C4CDB6300C4C054 /* Christmas Star Filled-100.png */,
 				610641A51BBE421800BA83BF /* Checked-32.png */,
 				6116606F1B9552AF0032458B /* Expensive 2-50.png */,
@@ -523,6 +528,7 @@
 				618872B41C48FC6800449980 /* LittleAlbumMenu.swift */,
 				612738B01C4CCAF500C4C054 /* PhotoDetailViewCtrl.swift */,
 				612738B21C4CCB2D00C4C054 /* PhotoPageViewCtrl.swift */,
+				61144D681C577A8E008A90CA /* SelectSchoolViewCtrl.swift */,
 			);
 			path = oneAdminTeacher;
 			sourceTree = "<group>";
@@ -666,6 +672,7 @@
 				613E8B0D1B9436930020228E /* Cash Register Filled-32.png in Resources */,
 				61E5747A1B85C03C00D2BD21 /* Menu 2-26.png in Resources */,
 				6104420C1B44E9FC007D3C98 /* Search Property Filled-32.png in Resources */,
+				61144D671C576A60008A90CA /* Support Filled-32.png in Resources */,
 				610E0A501B53568900186BF3 /* Menu Filled-25.png in Resources */,
 				610CB0921B5523E80051EC76 /* Age-25.png in Resources */,
 				610CB0931B5523E80051EC76 /* Edit Property-25.png in Resources */,
@@ -767,6 +774,7 @@
 				611485611B65EEA400B54BBB /* NotificationService.swift in Sources */,
 				61E574841B85C3E800D2BD21 /* ChartViewCtrl.swift in Sources */,
 				61E574801B85C36900D2BD21 /* OptionSettingViewCtrl.swift in Sources */,
+				61144D691C577A8E008A90CA /* SelectSchoolViewCtrl.swift in Sources */,
 				611D2C7D1BE88D430084A1F0 /* ExamScoreChart.swift in Sources */,
 				61F6CBCF1C464258003239FD /* StudentAlbumViewCtrl.swift in Sources */,
 				61E574821B85C38200D2BD21 /* OptionEditViewCtrl.swift in Sources */,

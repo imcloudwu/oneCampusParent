@@ -59,6 +59,8 @@ class DisciplineViewCtrl: UIViewController,UITableViewDelegate,UITableViewDataSo
         self.noDataLabel.hidden = self._displayData.count > 0
         
         self.tableView.reloadData()
+        
+        animatedWithTableView(self.tableView)
     }
     
     override func viewDidLoad() {

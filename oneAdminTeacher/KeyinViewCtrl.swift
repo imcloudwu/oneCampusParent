@@ -8,17 +8,14 @@
 
 import UIKit
 
-class KeyinViewCtrl: UIViewController,UITableViewDelegate,UITableViewDataSource,UIAlertViewDelegate,UITextFieldDelegate,UIWebViewDelegate {
-    
-    var _DSNSDic:[String:String]!
-    var _display:[String]!
+class KeyinViewCtrl: UIViewController,UIAlertViewDelegate,UITextFieldDelegate,UIWebViewDelegate {
     
     var _isBusy = false
     
     var _lastCount = -1
     
-    @IBOutlet weak var autoView: UITableView!
-    @IBOutlet weak var server: UITextField!
+    @IBOutlet weak var selectSchoolBtn: UIButton!
+    
     @IBOutlet weak var code: UITextField!
     @IBOutlet weak var relationship: UITextField!
     
@@ -31,6 +28,15 @@ class KeyinViewCtrl: UIViewController,UITableViewDelegate,UITableViewDataSource,
     
     var webView : UIWebView!
     var _DsnsItem : DsnsItem!
+    
+    @IBAction func selectSchoolBtnClick(sender: AnyObject) {
+        
+        let nextView = self.storyboard?.instantiateViewControllerWithIdentifier("SelectSchoolViewCtrl") as! SelectSchoolViewCtrl
+        
+        nextView._SelectedSchool = _DsnsItem
+        
+        self.navigationController?.pushViewController(nextView, animated: true)
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -45,36 +51,31 @@ class KeyinViewCtrl: UIViewController,UITableViewDelegate,UITableViewDataSource,
         webView.hidden = true
         webView.delegate = self
         
-        _DSNSDic = [String:String]()
-        _display = [String]()
-        
-        autoView.delegate = self
-        autoView.dataSource = self
-        
-        server.delegate = self
         code.delegate = self
         relationship.delegate = self
         idNumber.delegate = self
         studentNumber.delegate = self
         
-        server.addTarget(self, action: "GetServerName", forControlEvents: UIControlEvents.EditingChanged)
-        
         // Do any additional setup after loading the view, typically from a nib.
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        
+        if _DsnsItem == nil{
+            _DsnsItem = DsnsItem(name: "", accessPoint: "")
+        }
+        
+        if _DsnsItem.AccessPoint.isEmpty{
+            self.selectSchoolBtn.setTitle("選擇學校", forState: UIControlState.Normal)
+        }
+        else{
+            self.selectSchoolBtn.setTitle(_DsnsItem.Name, forState: UIControlState.Normal)
+        }
     }
     
     override func viewDidAppear(animated: Bool) {
         self.webView.frame = self.view.bounds
         self.view.addSubview(self.webView)
-    }
-    
-    func GetServerName(){
-        
-        let count = self.server.text!.lengthOfBytesUsingEncoding(NSUTF8StringEncoding)
-        
-        if _lastCount != count && !_isBusy{
-            _lastCount = count
-            newSearch(self.server.text!)
-        }
     }
     
     override func didReceiveMemoryWarning() {
@@ -85,10 +86,6 @@ class KeyinViewCtrl: UIViewController,UITableViewDelegate,UITableViewDataSource,
     // called when 'return' key pressed. return NO to ignore.
     func textFieldShouldReturn(textField: UITextField) -> Bool{
         self.view.endEditing(true)
-        
-        if autoView.hidden == false{
-            autoView.hidden = true
-        }
         
         SetExtraTextFiled()
         
@@ -115,96 +112,14 @@ class KeyinViewCtrl: UIViewController,UITableViewDelegate,UITableViewDataSource,
     
     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
         self.view.endEditing(true)
-        if autoView.hidden == false{
-            autoView.hidden = true
-        }
-    }
-    
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int{
-        return _display.count
-    }
-    
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell{
-        let cell = UITableViewCell(style: UITableViewCellStyle.Default, reuseIdentifier: "auto")
-        cell.textLabel?.text = _display[indexPath.row]
-        return cell
-    }
-    
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        autoView.hidden = true
-        server.text = _display[indexPath.row]
-    }
-    
-    func newSearch(matchName:String){
-        
-        _isBusy = true
-        
-        //encode成功呼叫查詢
-        if let encodingName = matchName.UrlEncoding{
-            
-            HttpClient.Get("http://dsns.1campus.net/campusman.ischool.com.tw/config.public/GetSchoolList?content=%3CRequest%3E%3CMatch%3E\(encodingName)%3C/Match%3E%3CPagination%3E%3CPageSize%3E10%3C/PageSize%3E%3CStartPage%3E1%3C/StartPage%3E%3C/Pagination%3E%3C/Request%3E", successCallback: { (response) -> Void in
-                
-                if !response.isEmpty {
-                    
-                    //println(NSString(data: rsp, encoding: NSUTF8StringEncoding))
-                    
-                    var tmpDic = [String:String]()
-                    
-                    var nserr : NSError?
-                    
-                    let xml: AEXMLDocument?
-                    do {
-                        xml = try AEXMLDocument(xmlData: response.dataValue)
-                    } catch _ {
-                        xml = nil
-                    }
-                    
-                    if let schools = xml?.root["Response"]["School"].all{
-                        
-                        for school in schools{
-                            let name = school["Title"].stringValue
-                            let dsns = school["DSNS"].stringValue
-                            
-                            tmpDic[name] = dsns
-                        }
-                    }
-                    
-                    self._DSNSDic = tmpDic
-                    self._display = Array(tmpDic.keys)
-                    
-                    if self._display.count > 0{
-                        self.autoView.reloadData()
-                        self.autoView.hidden = false
-                    }
-                    else{
-                        self.autoView.hidden = true
-                    }
-                }
-
-                self._isBusy = false
-                
-            }, errorCallback: { (error) -> Void in
-                
-                self._isBusy = false
-            }, prepareCallback: { (request) -> Void in
-                //code
-            })
-        }
     }
     
     @IBAction func submit(sender: AnyObject) {
         
-        var serverName = ""
-        
-        if let dsns = _DSNSDic[server.text!]{
-            serverName = dsns
-        }
-        else{
-            serverName = server.text!
-        }
+        var serverName = self._DsnsItem.AccessPoint
         
         if serverName.isEmpty{
-            ShowErrorAlert(self, title: "請輸入學校或主機名稱", msg: "")
+            ShowErrorAlert(self, title: "請選擇學校", msg: "")
             return
         }
         
@@ -224,7 +139,7 @@ class KeyinViewCtrl: UIViewController,UITableViewDelegate,UITableViewDataSource,
     
     func AddApplicationRef(server:String){
         
-        self._DsnsItem = DsnsItem(name: "", accessPoint: server)
+        //self._DsnsItem = DsnsItem(name: "", accessPoint: server)
         
         if !Global.DsnsList.contains(self._DsnsItem){
             

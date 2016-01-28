@@ -264,6 +264,8 @@ class MessageViewCtrl: UIViewController,UITableViewDataSource,UITableViewDelegat
         self.ViewTitle = "收件訊息"
         self.SetViewTitle()
         self.tableView.reloadData()
+        
+        animatedWithTableView(self.tableView)
     }
     
     func GotoOutbox(){
@@ -282,6 +284,8 @@ class MessageViewCtrl: UIViewController,UITableViewDataSource,UITableViewDelegat
         self.ViewTitle = "寄件訊息"
         self.SetViewTitle()
         self.tableView.reloadData()
+        
+        animatedWithTableView(self.tableView)
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int{

@@ -232,10 +232,14 @@ class DsnsItem : Equatable{
     
     var Name : String
     var AccessPoint : String
+    var Location : String
+    var Type : String
     
     init(name:String,accessPoint:String){
         self.Name = name
         self.AccessPoint = accessPoint
+        self.Location = ""
+        self.Type = ""
     }
 }
 

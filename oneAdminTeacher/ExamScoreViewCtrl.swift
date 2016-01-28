@@ -225,6 +225,8 @@ class ExamScoreViewCtrl: UIViewController,UITableViewDelegate,UITableViewDataSou
         _displayData = displayData
         
         tableView.reloadData()
+        
+        animatedWithTableView(self.tableView)
     }
     
     func SetSHDataToTableView(){
@@ -281,6 +283,8 @@ class ExamScoreViewCtrl: UIViewController,UITableViewDelegate,UITableViewDataSou
         _displayData = displayData
         
         tableView.reloadData()
+        
+        animatedWithTableView(self.tableView)
     }
     
     func SetScoreCalcRule(){

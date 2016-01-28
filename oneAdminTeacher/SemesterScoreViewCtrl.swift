@@ -115,6 +115,8 @@ class SemesterScoreViewCtrl: UIViewController,UITableViewDelegate,UITableViewDat
         }
         
         tableView.reloadData()
+        
+        animatedWithTableView(tableView)
     }
     
     func GetJhItems(currentData:ScoreInfoItem) -> [DisplayItem]{
