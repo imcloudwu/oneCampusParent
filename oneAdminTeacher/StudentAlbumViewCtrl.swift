@@ -89,7 +89,7 @@ class StudentAlbumViewCtrl: UIViewController,UICollectionViewDelegateFlowLayout,
         
         var retVal = ""
         
-        let rsp = try? HttpClient.Get("https://dsns.1campus.net/\(StudentData.DSNS)/sakura/GetMyChild?stt=PassportAccessToken&AccessToken=\(Global.AccessToken)")
+        let rsp = try? HttpClient.Get("http://dsns.1campus.net/\(StudentData.DSNS)/sakura/GetMyChild?stt=PassportAccessToken&AccessToken=\(Global.AccessToken)")
         
         if rsp == nil{
             return retVal

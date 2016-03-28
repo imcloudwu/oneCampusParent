@@ -10,6 +10,12 @@ import UIKit
 
 class ExamScoreViewCtrl: UIViewController,UITableViewDelegate,UITableViewDataSource,ContainerViewProtocol {
     
+    var currentTime : NSDate!
+    var dateFormatter : NSDateFormatter!
+    
+    var _SystemSYSM = SemesterItem(SchoolYear: "", Semester: "")
+    
+    var _examMustEndDate = false
     var _isJH = false
     var _isHS = false
     var _SubjectScales : Int16 = 2
@@ -37,6 +43,11 @@ class ExamScoreViewCtrl: UIViewController,UITableViewDelegate,UITableViewDataSou
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        currentTime = NSDate()
+        
+        dateFormatter = NSDateFormatter()
+        dateFormatter.dateFormat = "yyyy/MM/dd HH:mm"
         
         tableView.delegate = self
         tableView.dataSource = self
@@ -77,6 +88,10 @@ class ExamScoreViewCtrl: UIViewController,UITableViewDelegate,UITableViewDataSou
             self._con = GetCommonConnect(self.StudentData.DSNS)
             
             self.CheckDSNS()
+            
+            self.GetSyetemConfig()
+            
+            self.GetSchoolYearAndSemester()
             
             if self._isJH{
                 self.SetScoreCalcRule()
@@ -193,6 +208,14 @@ class ExamScoreViewCtrl: UIViewController,UITableViewDelegate,UITableViewDataSou
             var mustAppendItem = [DisplayItem]()
             
             for item in items{
+                
+                if self._examMustEndDate && self._SystemSYSM.SchoolYear == item.SchoolYear && self._SystemSYSM.Semester == item.Semester{
+                    
+                    if let start = item.StartTime, let end = item.EndTime where self.currentTime >= start && self.currentTime <= end{
+                        continue
+                    }
+                }
+                
                 let data = item
                 var avg = data.GetJHScore()
                 
@@ -256,7 +279,16 @@ class ExamScoreViewCtrl: UIViewController,UITableViewDelegate,UITableViewDataSou
             //items.sort({$0.DisplayOrder < $1.DisplayOrder})
             
             var lastScore = Double.NaN
+            
             for item in items{
+                
+                if self._examMustEndDate && self._SystemSYSM.SchoolYear == item.SchoolYear && self._SystemSYSM.Semester == item.Semester{
+                    
+                    if let start = item.StartTime, let end = item.EndTime where self.currentTime >= start && self.currentTime <= end{
+                        continue
+                    }
+                }
+                
                 var result : String!
                 let scoreValue = item.GetSHScore()
                 
@@ -355,7 +387,13 @@ class ExamScoreViewCtrl: UIViewController,UITableViewDelegate,UITableViewDataSou
                                 let examName = exam.attributes["ExamName"]
                                 let score = exam["ScoreDetail"].attributes["Score"]
                                 
-                                let item = ExamScoreItem(SchoolYear: schoolYear!, Semester: semester!, CourseID: courseID!,Domain: "", Subject: subject!, Credit: credit!, ExamId: examId!, ExamName: examName!, Score: score!, AssignmentScore: "", DisplayOrder: examDisplayOrder!, ScorePercentage: 0)
+                                let startTime = exam["ScoreDetail"].attributes["StartTime"] ?? ""
+                                let endTime = exam["ScoreDetail"].attributes["EndTime"] ?? ""
+                                
+                                let start = dateFormatter.dateFromString(ReplaceSecond(startTime))
+                                let end = dateFormatter.dateFromString(ReplaceSecond(endTime))
+                                
+                                let item = ExamScoreItem(SchoolYear: schoolYear!, Semester: semester!, CourseID: courseID!,Domain: "", Subject: subject!, Credit: credit!, ExamId: examId!, ExamName: examName!, Score: score!, AssignmentScore: "", DisplayOrder: examDisplayOrder!, ScorePercentage: 0, StartTime: start, EndTime: end)
                                 
                                 retVal.append(item)
                             }
@@ -410,7 +448,7 @@ class ExamScoreViewCtrl: UIViewController,UITableViewDelegate,UITableViewDataSou
                         
                         //針對高雄的資料新增平時成績
                         if !_isHS , let ordinarilyScore = course["FixExtension"]["Extension"]["OrdinarilyScore"].first?.stringValue{
-                            let item = ExamScoreItem(SchoolYear: schoolYear!, Semester: semester!, CourseID: courseID!, Domain: domain!, Subject: subject!, Credit: credit!, ExamId: "", ExamName: "平時成績", Score: ordinarilyScore, AssignmentScore: "", DisplayOrder: 99, ScorePercentage: scorePercentage)
+                            let item = ExamScoreItem(SchoolYear: schoolYear!, Semester: semester!, CourseID: courseID!, Domain: domain!, Subject: subject!, Credit: credit!, ExamId: "", ExamName: "平時成績", Score: ordinarilyScore, AssignmentScore: "", DisplayOrder: 99, ScorePercentage: scorePercentage,StartTime: nil, EndTime: nil)
                             
                             retVal.append(item)
                         }
@@ -431,7 +469,13 @@ class ExamScoreViewCtrl: UIViewController,UITableViewDelegate,UITableViewDataSou
                                     assignmentScore = tmpAssignmentScore
                                 }
                                 
-                                let item = ExamScoreItem(SchoolYear: schoolYear!, Semester: semester!, CourseID: courseID!, Domain: domain!, Subject: subject!, Credit: credit!, ExamId: examId!, ExamName: examName!, Score: score, AssignmentScore: assignmentScore, DisplayOrder: examDisplayOrder!, ScorePercentage: scorePercentage)
+                                let startTime = exam["ScoreDetail"].attributes["StartTime"] ?? ""
+                                let endTime = exam["ScoreDetail"].attributes["EndTime"] ?? ""
+                                
+                                let start = dateFormatter.dateFromString(ReplaceSecond(startTime))
+                                let end = dateFormatter.dateFromString(ReplaceSecond(endTime))
+                                
+                                let item = ExamScoreItem(SchoolYear: schoolYear!, Semester: semester!, CourseID: courseID!, Domain: domain!, Subject: subject!, Credit: credit!, ExamId: examId!, ExamName: examName!, Score: score, AssignmentScore: assignmentScore, DisplayOrder: examDisplayOrder!, ScorePercentage: scorePercentage,StartTime: start, EndTime: end)
                                 
                                 retVal.append(item)
                             }
@@ -515,8 +559,6 @@ class ExamScoreViewCtrl: UIViewController,UITableViewDelegate,UITableViewDataSou
             
             if let rsp = data{
                 
-                var nserr : NSError?
-                
                 let xml: AEXMLDocument?
                 do {
                     xml = try AEXMLDocument(xmlData: rsp)
@@ -536,6 +578,70 @@ class ExamScoreViewCtrl: UIViewController,UITableViewDelegate,UITableViewDataSou
                     
                 }
             }
+        }
+    }
+    
+    func GetSyetemConfig(){
+        
+        var err : DSFault!
+        
+        let rsp = self._con.SendRequest("main.GetSystemConfig", bodyContent: "", &err)
+        
+        if err != nil{
+            return
+        }
+        
+        let xml: AEXMLDocument?
+        
+        do {
+            xml = try AEXMLDocument(xmlData: rsp.dataValue)
+        } catch _ {
+            xml = nil
+        }
+        
+        if let uses = xml?.root["Package"]["Use"].all{
+            
+            for use in uses{
+                
+                if let function = use.attributes["function"] where function == "評量成績查詢"{
+                    
+                    if let params = use["Param"].all{
+                        
+                        for p in params{
+                            
+                            if let name = p.attributes["name"] where name == "system_exam_must_enddate"{
+                                
+                                self._examMustEndDate = p.stringValue == "true" ? true : false
+                            }
+                        }
+                    }
+                }
+            }
+            
+        }
+    }
+    
+    func GetSchoolYearAndSemester(){
+        
+        var err : DSFault!
+        
+        let rsp = self._con.SendRequest("main.GetCurrentSemester", bodyContent: "", &err)
+        
+        if err != nil{
+            return
+        }
+        
+        let xml: AEXMLDocument?
+        
+        do {
+            xml = try AEXMLDocument(xmlData: rsp.dataValue)
+        } catch _ {
+            xml = nil
+        }
+        
+        if let schoolYear = xml?.root["Response"]["SchoolYear"].stringValue,let semester = xml?.root["Response"]["Semester"].stringValue{
+            
+            self._SystemSYSM = SemesterItem(SchoolYear: schoolYear, Semester: semester)
         }
     }
     
@@ -686,6 +792,19 @@ class ExamScoreViewCtrl: UIViewController,UITableViewDelegate,UITableViewDataSou
             }
     }
     
+    func ReplaceSecond(time:String) -> String{
+        
+        var subString = time
+        
+        if time.characters.count == 19{
+            
+            //字串擷取
+            subString = (time as NSString).substringToIndex(16)
+        }
+        
+        return subString
+    }
+    
 }
 
 struct ExamScoreItem : SemesterProtocol{
@@ -701,7 +820,8 @@ struct ExamScoreItem : SemesterProtocol{
     var AssignmentScore : String
     var DisplayOrder : Int
     var ScorePercentage : Double
-    //var Avg:String
+    var StartTime : NSDate!
+    var EndTime : NSDate!
     
     func GetSHScore() -> Double{
         if Score.isEmpty{

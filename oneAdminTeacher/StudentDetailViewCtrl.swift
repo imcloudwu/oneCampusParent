@@ -70,7 +70,7 @@ class StudentDetailViewCtrl: UIViewController {
             SegmentHeight.constant = 0
         }
         
-        Segment.removeSegmentAtIndex(0, animated: true)
+        //Segment.removeSegmentAtIndex(0, animated: true)
         
         Segment.selectedSegmentIndex = 0
         
@@ -115,23 +115,23 @@ class StudentDetailViewCtrl: UIViewController {
         
         lastSegmentIndex = Segment.selectedSegmentIndex
         
-//        if Segment.selectedSegmentIndex == 0{
-//            let contentView = self.storyboard?.instantiateViewControllerWithIdentifier("StudentAlbumViewCtrl") as! StudentAlbumViewCtrl
-//            ChangeContainerViewContent(contentView)
-//        }
         if Segment.selectedSegmentIndex == 0{
+            let contentView = self.storyboard?.instantiateViewControllerWithIdentifier("StudentAlbumViewCtrl") as! StudentAlbumViewCtrl
+            ChangeContainerViewContent(contentView)
+        }
+        if Segment.selectedSegmentIndex == 1{
             let contentView = self.storyboard?.instantiateViewControllerWithIdentifier("attendanceViewCtrl") as! AttendanceViewCtrl
             ChangeContainerViewContent(contentView)
         }
-        else if Segment.selectedSegmentIndex == 1{
+        else if Segment.selectedSegmentIndex == 2{
             let contentView = self.storyboard?.instantiateViewControllerWithIdentifier("disciplineViewCtrl") as! DisciplineViewCtrl
             ChangeContainerViewContent(contentView)
         }
-        else if Segment.selectedSegmentIndex == 2{
+        else if Segment.selectedSegmentIndex == 3{
             let contentView = self.storyboard?.instantiateViewControllerWithIdentifier("examScoreViewCtrl") as! ExamScoreViewCtrl
             ChangeContainerViewContent(contentView)
         }
-        else if Segment.selectedSegmentIndex == 3{
+        else if Segment.selectedSegmentIndex == 4{
             let contentView = self.storyboard?.instantiateViewControllerWithIdentifier("semesterScoreViewCtrl") as! SemesterScoreViewCtrl
             ChangeContainerViewContent(contentView)
         }

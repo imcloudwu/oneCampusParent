@@ -82,7 +82,7 @@ class SideMenuViewCtrl: UIViewController{
     
     @IBAction func SendMailToSupportTeam(sender: AnyObject) {
         
-        let url = "mailto:support@ischool.com.tw?subject=1Campus家長App建議(iOS)"
+        let url = "mailto:support@ischool.com.tw?subject=關於 1Campus 家長  iOS App 的建議&body=學校名稱：\n家長姓名：\n學生姓名：\n請簡述您的操作問題或建議："
         
         if let encodeUrl = NSURL(string: url.UrlEncoding!){
             UIApplication.sharedApplication().openURL(encodeUrl)
